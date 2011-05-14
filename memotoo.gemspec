@@ -29,6 +29,7 @@ Gem::Specification.new do |s|
     "lib/memotoo/contact/contact.rb",
     "lib/memotoo/core-ext/hash.rb",
     "lib/memotoo/core-ext/kernel.rb",
+    "memotoo.gemspec",
     "test/helper.rb",
     "test/test_memotoo.rb"
   ]
