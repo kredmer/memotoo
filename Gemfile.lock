@@ -1,0 +1,37 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    builder (3.0.0)
+    git (1.2.5)
+    gyoku (0.4.3)
+      builder (>= 2.1.2)
+    httpi (0.9.3)
+      ntlm-http (>= 0.1.1)
+      rack
+    jeweler (1.5.2)
+      bundler (~> 1.0.0)
+      git (>= 1.2.5)
+      rake
+    nokogiri (1.4.4)
+    nori (0.2.0)
+    ntlm-http (0.1.1)
+    rack (1.2.2)
+    rake (0.8.7)
+    rcov (0.9.9)
+    savon (0.9.2)
+      builder (>= 2.1.2)
+      gyoku (>= 0.4.0)
+      httpi (>= 0.7.8)
+      nokogiri (>= 1.4.0)
+      nori (>= 0.2.0)
+    shoulda (2.11.3)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bundler (~> 1.0.0)
+  jeweler (~> 1.5.2)
+  rcov
+  savon
+  shoulda

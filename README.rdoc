@@ -1,8 +1,65 @@
-= memotoo
+= memotoo-gem
 
-Description goes here.
+<b>This is not an official gem from the provider of memotoo !!!</b>
 
-== Contributing to memotoo
+The memotoo-gem is a soap(savon)-wrapper to (easy) access your {memotoo}[http://www.memotoo.com/index-saleshype.php] contacts.
+
+Add, get, search, modify and delete your memotoo contacts.
+
+I searched for an memotoo-gem and could't find anyone. There are only php-scripts provided to use the memotoo-soap-api.
+
+Here is the first available ruby version and my first gem.
+
+== You need
+you need a memotoo-credential (usetrname/passwd) to use this gem 
+
+<b>get a free account here: {www.memotoo.com}[http://www.memotoo.com/index-saleshype.php]</b>
+
+
+==Install
+
+if you use <b>bundler</b> add gem 'memotoo' to your Gemfile run
+    bundle install
+else put it in your <b>environment.rb</b> and run
+    rake gems:install
+
+==Use
+
+give a first try in irb: ./script/console
+
+@connect=Memotoo::Connect.new("myusername","mypassword")
+
+[Add a contact:]
+
+   @response = @connect.addContact({:title => "Mr",:lastname => "Wonder",:firstname => "Test"})
+   
+get a contact from id
+
+   @response = @connect.getContact(12345)
+   
+search for contacts:
+
+   @response = @connect.searchContact("ka")
+     
+modify a contact:
+
+    @response = @connect.modifyContact({:id=>"12345",:lastname=>"New",:jobtitle => "cat-doctor",:otherphone => "12345"})
+    
+==Documentation
+
+see rdoc
+
+start rdoc server with: gem server 
+
+==To-Dos
+1. I havn't wrote any tests, but tested a lot.
+2. Exception handling should be done
+3. I only implemented contacts - these soap-objects are missing: bookmark, bookmark's folder, contact's group, event, holiday, task, note
+
+It would be nice if *someone* could help me with the missing parts .
+
+
+== Contributing to memotoo-gem
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
