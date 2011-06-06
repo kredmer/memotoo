@@ -19,7 +19,6 @@ Gem::Specification.new do |s|
   s.files = [
     ".document",
     ".gemtest",
-    ".rvmrc",
     "Gemfile",
     "Gemfile.lock",
     "LICENSE.txt",
@@ -30,7 +29,6 @@ Gem::Specification.new do |s|
     "lib/memotoo/connect.rb",
     "lib/memotoo/contact/contact.rb",
     "lib/memotoo/core-ext/hash.rb",
-    "memotoo-1.0.0.gem",
     "memotoo.gemspec",
     "test/helper.rb",
     "test/test_memotoo.rb"
