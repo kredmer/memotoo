@@ -64,6 +64,15 @@ module Memotoo
 		# returns the contact
 		contact.to_hash.seek :get_contact_response, :return, :contact
     end
+    
+    
+    	# et modified contacts since date
+    	# datetime = "2010-02-23 10:00:00"
+    	# e.g. @connect.getContactSync("2010-02-23 10:00:00")
+    def getContactSync(datetime)
+    	contacts = apicall(:getContactSync, { :date => datetime })
+    	contacts.to_hash.seek :get_contact_sync_response, :return, :contact
+    end
 
 
 		# id = integer
