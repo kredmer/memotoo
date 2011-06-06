@@ -1,6 +1,5 @@
 require "savon"
 require "memotoo/core-ext/hash"
-require "memotoo/core-ext/kernel"
 require "memotoo/contact/contact"
 
 module Memotoo
@@ -26,14 +25,6 @@ module Memotoo
 				:password => password,
 					}
 			}
-							
-		# set savon logging and erros
-		Savon.configure do |config|
-		  config.raise_errors = false   # do not raise SOAP faults and HTTP errors
-		  config.log = false            # disable logging
-		  config.log_level = :info      # changing the log level
-		  config.logger = Rails.logger  # using the Rails logger
-		end
 		
 		# creates client with memotoo settings 
 		client(https)
@@ -59,13 +50,14 @@ module Memotoo
 		  end
 		  http.auth.basic self.opts[:param][:login], self.opts[:param][:password]
 		end
+		
     end
     
     # used internally for a request
     def apicall(action, parameter)
 		
 		response=@client.request :wsdl, action do 
-				soap.body = { :param => parameter }.deep_merge!(self.opts)
+				soap.body = { :param => parameter }.deep_merge_me!(self.opts)
 			end	
 		response
 		
@@ -76,11 +68,30 @@ module Memotoo
 		rescue Savon::Error => error
 			if error.message.nil?
 				puts "invalid username/password"
-			else
-				puts error.to_s
-			end
+				
+		# I don't know which error is still possible
+		#			else
+		#				puts error.to_s
+		end
     end
+    
     
   end # class
 
 end # module
+
+# stop savon logging and raising errors
+
+module Savon
+  module Global
+
+    def log?
+      false
+    end
+    
+      def raise_errors?
+      @raise_errors = true
+    end
+   
+  end
+end

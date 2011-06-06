@@ -27,13 +27,13 @@ class Hash # :nodoc: all
       # Modifies the receiver in place.
       # => already in savon gem 
       # =>  in case a time come and it will be away - just uncomment it
-#      def deep_merge!(other_hash)
-#        other_hash.each_pair do |k,v|
-#          tv = self[k]
-#          self[k] = tv.is_a?(Hash) && v.is_a?(Hash) ? tv.deep_merge(v) : v
-#        end
-#        self
-#      end unless defined? deep_merge!
+      def deep_merge_me!(other_hash)
+        other_hash.each_pair do |k,v|
+          tv = self[k]
+          self[k] = tv.is_a?(Hash) && v.is_a?(Hash) ? tv.deep_merge_me!(v) : v
+        end
+        self
+      end unless defined? deep_merge!
   
   
   

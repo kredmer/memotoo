@@ -14,8 +14,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "memotoo"
   gem.homepage = "http://github.com/kredmer/memotoo"
   gem.license = "MIT"
-  gem.summary = "A gem for connecting to the memotoo soap-api"
-  gem.description = "A gem for connecting to the memotoo soap-api and handle your contact needs"
+  gem.summary = "Unofficial gem for connecting to the memotoo soap-api"
+  gem.description = "Unofficial gem for connecting to the memotoo soap-api and handle your contact needs. Memotoo lets your synchronize all your contacts, events and tasks with yahoo, gmail, facebook, xing, outlook, your mobile-phone and more. You can also get your e-mails in one place. Memotoo is good value for money!"
   gem.email = "k.redmer@yahoo.de"
   gem.authors = ["Karsten Redmer"]
   gem.add_dependency 'savon'

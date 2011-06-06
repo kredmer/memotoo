@@ -45,7 +45,12 @@ module Memotoo
 			 		}.merge!(searchparameter)
 			search_response = apicall(:searchContact, search)
 		# returns an array of contacts from search result
-		search_response.to_hash.seek :search_contact_response, :return, :contact
+		if search_response.nil? || search_response==""
+			 nil
+		else
+			search_response.to_hash.seek :search_contact_response, :return, :contact
+		end
+		
 		else
 			# returns false and a message
 			go_home(check[1])

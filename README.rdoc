@@ -11,7 +11,7 @@ I searched for an memotoo-gem and could't find anyone. There are only php-script
 Here is the first available ruby version and my first gem.
 
 == You need
-you need a memotoo-credential (usetrname/passwd) to use this gem 
+you need a memotoo-credential (username/passwd) to use this gem 
 
 <b>get a free account here: {www.memotoo.com}[http://www.memotoo.com/index-saleshype.php]</b>
 
@@ -29,11 +29,11 @@ give a first try in irb: ./script/console
 
 @connect=Memotoo::Connect.new("myusername","mypassword")
 
-[Add a contact:]
+add a contact:
 
    @response = @connect.addContact({:title => "Mr",:lastname => "Wonder",:firstname => "Test"})
    
-get a contact from id
+get a contact from id:
 
    @response = @connect.getContact(12345)
    
@@ -45,16 +45,23 @@ modify a contact:
 
     @response = @connect.modifyContact({:id=>"12345",:lastname=>"New",:jobtitle => "cat-doctor",:otherphone => "12345"})
     
+==Testing
+
+I added tests for all possible functions. (rcov 100%)
+You can add your own credential to /test/test_memotoo.rb
+
+I also added support for {http://test.rubygems.org}[http://test.rubygems.org]
+
+You can now use the gem rubygems-test for easy testing this gem.
+
 ==Documentation
 
 see rdoc
 
-start rdoc server with: gem server 
-
 ==To-Dos
-1. I havn't wrote any tests, but tested a lot.
-2. Exception handling should be done
-3. I only implemented contacts - these soap-objects are missing: bookmark, bookmark's folder, contact's group, event, holiday, task, note
+
+1. Exception handling should be done
+2. I only implemented contacts - these soap-objects are missing: bookmark, bookmark's folder, contact's group, event, holiday, task, note
 
 It would be nice if *someone* could help me with the missing parts .
 
