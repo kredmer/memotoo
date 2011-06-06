@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.version = "1.0.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Karsten Redmer"]
+  s.authors = [%q{Karsten Redmer}]
   s.date = %q{2011-06-06}
   s.description = %q{Unofficial gem for connecting to the memotoo soap-api and handle your contact needs. Memotoo lets your synchronize all your contacts, events and tasks with yahoo, gmail, facebook, xing, outlook, your mobile-phone and more. You can also get your e-mails in one place. Memotoo is good value for money!}
   s.email = %q{k.redmer@yahoo.de}
@@ -30,14 +30,15 @@ Gem::Specification.new do |s|
     "lib/memotoo/contact/contact.rb",
     "lib/memotoo/core-ext/hash.rb",
     "memotoo-1.0.0.gem",
+    "memotoo-1.0.1.gem",
     "memotoo.gemspec",
     "test/helper.rb",
     "test/test_memotoo.rb"
   ]
   s.homepage = %q{http://github.com/kredmer/memotoo}
-  s.licenses = ["MIT"]
-  s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.6.2}
+  s.licenses = [%q{MIT}]
+  s.require_paths = [%q{lib}]
+  s.rubygems_version = %q{1.8.2}
   s.summary = %q{Unofficial gem for connecting to the memotoo soap-api}
   s.test_files = [
     "test/helper.rb",
