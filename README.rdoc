@@ -6,10 +6,6 @@ The memotoo-gem is a soap(savon)-wrapper to (easy) access your {memotoo}[http://
 
 Add, get, search, modify and delete your memotoo contacts.
 
-I searched for an memotoo-gem and could't find anyone. There are only php-scripts provided to use the memotoo-soap-api.
-
-Here is the first available ruby version and my first gem.
-
 == You need
 you need a memotoo-credential (username/passwd) to use this gem 
 
