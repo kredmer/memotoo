@@ -54,6 +54,8 @@ I also added support for {http://test.rubygems.org}[http://test.rubygems.org]
 
 You can now use the gem rubygems-test for easy testing this gem.
 
+See my testrsult here: http://test.rubygems.org/gems/memotoo/v/1.0.1/test_results/1645
+
 ==Documentation
 
 see rdoc
