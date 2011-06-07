@@ -52,7 +52,8 @@ module Memotoo
 		else
 		
 		response_name=(soapname+"_response").to_sym
-			search_response.to_hash.seek response_name, :return, :contact
+		#response_vars=
+			search_response.to_hash.seek(response_name, :return, :contact)
 			#[this_method, this_method.class]
 		end
 		
