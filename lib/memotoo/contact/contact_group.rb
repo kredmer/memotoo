@@ -37,16 +37,16 @@ module Memotoo
 
 
 
-    def addContactGroup(groupname={})
-    	check=has_fields(details, :lastname)
-		if check[0]
+    def addContactGroup(groupname)
+    	#check=has_fields(details, :lastname)
+		#if check[0]
 			contact = apicall(:addContactGroup, { :contactGroup => groupname })
 			# return the id from the new contact -> get it in my own db? maybe
 			contact.to_hash.seek :add_contact_group_response, :id
-		else
+		#else
 		# returns false, if lastname is not given
-			go_home(check[1])		
-		end
+		#	go_home(check[1])		
+		#end
 	end
 
 
