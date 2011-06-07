@@ -6,8 +6,8 @@ module Memotoo
 
 #contact-group
 #     
-#:search_contact_group,
-#:add_contact_group,    
+#                :search_contact_group,
+#                :add_contact_group,    
 #:delete_contact_group,
 #:get_contact_group,
 #:get_contact_group_sync

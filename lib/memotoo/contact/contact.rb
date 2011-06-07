@@ -49,7 +49,8 @@ module Memotoo
 		if search_response.nil? || search_response==""
 			 nil
 		else
-			search_response.to_hash.seek :search_contact_response, :return, :contact
+			#search_response.to_hash.seek :search_contact_response, :return, :contact
+			[this_method, this_method.class]
 		end
 		
 		else
