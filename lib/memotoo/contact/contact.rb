@@ -50,7 +50,9 @@ module Memotoo
 		if search_response.nil? || search_response==""
 			 nil
 		else
-			search_response.to_hash.seek (soapname+"_response").to_sym, :return, :contact
+		
+		response_name=(soapname+"_response").to_sym
+			search_response.to_hash.seek response_name, :return, :contact
 			#[this_method, this_method.class]
 		end
 		
