@@ -46,7 +46,7 @@ module Memotoo
 				wsdl.document = "https://www.memotoo.com/SOAP-server.php?wsdl"
 				http.auth.ssl.verify_mode = :none 
 		  else
-		        wsdl.document = "https://www.memotoo.com/SOAP-server.php?wsdl"
+		        wsdl.document = "http://www.memotoo.com/SOAP-server.php?wsdl"
 		  end
 		  http.auth.basic self.opts[:param][:login], self.opts[:param][:password]
 		end
