@@ -76,6 +76,11 @@ class TestMemotoo < Test::Unit::TestCase
 				  contact = @connect.getContact(response[:id])
 				  assert_not_nil contact
 			end
+			
+			should "get the contacts changed since 2011-01-01" do
+				response = @connect.getContactSync("2011-01-01 00:00:00")
+				assert_not_nil response
+			end
 		
 		end
 		
@@ -123,3 +128,24 @@ end
 #    
 #  end
 #end
+
+################## rcov-result ######################
+
+#Generated on Tue Jun 07 09:45:05 +0200 2011 with rcov 0.9.8
+
+#Finished in 21.668891 seconds.
+
+#14 tests, 14 assertions, 0 failures, 0 errors
+#+----------------------------------------------------+-------+-------+--------+
+#|                  File                              | Lines |  LOC  |  COV   |
+#+----------------------------------------------------+-------+-------+--------+
+#|lib/memotoo.rb                                      |     5 |     3 | 100.0% |
+#|lib/memotoo/connect.rb                              |    97 |    48 | 100.0% |
+#|lib/memotoo/contact/contact.rb                      |   210 |    69 | 100.0% |
+#|lib/memotoo/core-ext/hash.rb                        |    40 |    25 | 100.0% |
+#+----------------------------------------------------+-------+-------+--------+
+#|Total                                               |   352 |   145 | 100.0% |
+#+----------------------------------------------------+-------+-------+--------+
+#100.0%   4 file(s)   352 Lines   145 LOC
+
+

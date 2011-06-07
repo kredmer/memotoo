@@ -1,3 +1,4 @@
+require 'parsedate'
 
 module Memotoo
   
@@ -66,11 +67,14 @@ module Memotoo
     end
     
     
-    	# et modified contacts since date
-    	# datetime = "2010-02-23 10:00:00"
+    	# get modified contacts since date
+    	# datetime = "2010-02-23 10:00:00" or just "2010-02-23"
     	# e.g. @connect.getContactSync("2010-02-23 10:00:00")
     def getContactSync(datetime)
-    	contacts = apicall(:getContactSync, { :date => datetime })
+    	date2time=Time.mktime(*ParseDate.parsedate(datetime))
+    	formated_date=date2time.strftime("%Y-%m-%d %H:%M:%S")
+    	#datetime=datetime.to_time.strftime("%Y-%m-%d %H:%M:%S")
+    	contacts = apicall(:getContactSync, { :date => formated_date })
     	contacts.to_hash.seek :get_contact_sync_response, :return, :contact
     end
 

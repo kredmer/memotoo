@@ -40,6 +40,11 @@ search for contacts:
 modify a contact:
 
     @response = @connect.modifyContact({:id=>"12345",:lastname=>"New",:jobtitle => "cat-doctor",:otherphone => "12345"})
+
+get contact modified after a date
+
+    @response = @connect.getContactSync("2011-01-01 10:00:00")
+
     
 ==Testing
 
