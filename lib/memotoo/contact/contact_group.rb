@@ -19,7 +19,7 @@ module Memotoo
 			search = { 	:limit_start => '0',
 						:limit_nb => '100'
 			 		}.merge!(searchparameter)
-			search_response = apicall(:searchContact, search)
+			search_response = apicall(:searchContactGroup, search)
 		# returns an array of contactgroups from search result
 		if search_response.nil? || search_response==""
 			 nil
