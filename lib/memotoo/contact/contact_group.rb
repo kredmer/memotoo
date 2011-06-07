@@ -39,13 +39,13 @@ module Memotoo
 
     def addContactGroup(groupname)
     
-    search = { 	:id => '',
+    addparams = { 	:id => '',
 				:updated => ''
 			 }.merge!(:name=>groupname)
     
     	#check=has_fields(details, :lastname)
 		#if check[0]
-			contact = apicall(:addContactGroup, { :contactGroup => groupname })
+			contact = apicall(:addContactGroup, { :contactGroup => addparams })
 			# return the id from the new contact -> get it in my own db? maybe
 			contact.to_hash.seek :add_contact_group_response, :id
 		#else
