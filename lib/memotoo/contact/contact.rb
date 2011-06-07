@@ -12,7 +12,7 @@ module Memotoo
     # @connect=Memotoo::Connect.new("myusername","mypassword")
     
     #   # retrieving search results
-    # @response = @connect.searchContact("ka")
+    # @response = @connect.searchContact({:search=>"ka"})
     
     #   # get a contact from id
     # @response = @connect.getContact(12345)
@@ -73,7 +73,6 @@ module Memotoo
     def getContactSync(datetime)
     	date2time=Time.mktime(*ParseDate.parsedate(datetime))
     	formated_date=date2time.strftime("%Y-%m-%d %H:%M:%S")
-    	#datetime=datetime.to_time.strftime("%Y-%m-%d %H:%M:%S")
     	contacts = apicall(:getContactSync, { :date => formated_date })
     	contacts.to_hash.seek :get_contact_sync_response, :return, :contact
     end
@@ -97,7 +96,7 @@ module Memotoo
 			# return true if the changed happened
 			contact.to_hash.seek :modify_contact_response, :ok
 		else
-		# returns false, if lastname and id is not given
+		# returns false, if lastname and/or id is not given
 			go_home(check[1])		
 		end
     end

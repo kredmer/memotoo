@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<definitions xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="urn:memotooSoap" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="urn:memotooSoap">
+<types><xsd:schema targetNamespace="urn:memotooSoap">
+ <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+ <xsd:import namespace="http://schemas.xmlsoap.org/wsdl/"/>
+ <xsd:complexType name="paramDelete">
+  <xsd:sequence>
+   <xsd:element name="login" type="xsd:string"/>
+   <xsd:element name="password" type="xsd:string"/>
+   <xsd:element name="id" type="xsd:int"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="paramSearch">
+  <xsd:sequence>
+   <xsd:element name="login" type="xsd:string"/>
+   <xsd:element name="password" type="xsd:string"/>
+   <xsd:element name="search" type="xsd:string"/>
+   <xsd:element name="limitStart" type="xsd:int" default="0"/>
+   <xsd:element name="limitNb" type="xsd:int" default="100"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="bookmark">
+  <xsd:sequence>
+   <xsd:element name="id" type="xsd:int"/>
+   <xsd:element name="updated" type="xsd:string"/>
+   <xsd:element name="url" type="xsd:string"/>
+   <xsd:element name="description" type="xsd:string"/>
+   <xsd:element name="tags" type="xsd:string"/>
+   <xsd:element name="rank" type="xsd:int"/>
+   <xsd:element name="id_bookmarkFolder" type="xsd:int"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="paramUpdateBookmark">
+  <xsd:sequence>
+   <xsd:element name="login" type="xsd:string"/>
+   <xsd:element name="password" type="xsd:string"/>
+   <xsd:element name="bookmark" type="tns:bookmark" minOccurs="1" maxOccurs="10"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="paramGetBookmark">
+  <xsd:sequence>
+   <xsd:element name="login" type="xsd:string"/>
+   <xsd:element name="password" type="xsd:string"/>
+   <xsd:element name="id" type="xsd:int"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="paramGetBookmarkSync">
+  <xsd:sequence>
+   <xsd:element name="login" type="xsd:string"/>
+   <xsd:element name="password" type="xsd:string"/>
+   <xsd:element name="date" type="xsd:date"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="bookmarkResponse">
+  <xsd:sequence>
+   <xsd:element name="bookmark" type="tns:bookmark" minOccurs="0" maxOccurs="99999"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="bookmarkFolder">
+  <xsd:sequence>
+   <xsd:element name="id" type="xsd:int"/>
+   <xsd:element name="updated" type="xsd:string"/>
+   <xsd:element name="name" type="xsd:string"/>
+   <xsd:element name="id_bookmarkFolderParent" type="xsd:int"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="paramUpdateBookmarkFolder">
+  <xsd:sequence>
+   <xsd:element name="login" type="xsd:string"/>
+   <xsd:element name="password" type="xsd:string"/>
+   <xsd:element name="bookmarkFolder" type="tns:bookmarkFolder" minOccurs="1" maxOccurs="10"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="paramGetBookmarkFolder">
+  <xsd:sequence>
+   <xsd:element name="login" type="xsd:string"/>
+   <xsd:element name="password" type="xsd:string"/>
+   <xsd:element name="id" type="xsd:int"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="paramGetBookmarkFolderSync">
+  <xsd:sequence>
+   <xsd:element name="login" type="xsd:string"/>
+   <xsd:element name="password" type="xsd:string"/>
+   <xsd:element name="date" type="xsd:date"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="bookmarkFolderResponse">
+  <xsd:sequence>
+   <xsd:element name="bookmarkFolder" type="tns:bookmarkFolder" minOccurs="0" maxOccurs="99999"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="calendarCategory">
+  <xsd:sequence>
+   <xsd:element name="id" type="xsd:int"/>
+   <xsd:element name="updated" type="xsd:string"/>
+   <xsd:element name="name" type="xsd:string"/>
+   <xsd:element name="color" type="xsd:string"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="paramUpdateCalendarCategory">
+  <xsd:sequence>
+   <xsd:element name="login" type="xsd:string"/>
+   <xsd:element name="password" type="xsd:string"/>
+   <xsd:element name="calendarCategory" type="tns:calendarCategory" minOccurs="1" maxOccurs="10"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="paramGetCalendarCategory">
+  <xsd:sequence>
+   <xsd:element name="login" type="xsd:string"/>
+   <xsd:element name="password" type="xsd:string"/>
+   <xsd:element name="id" type="xsd:int"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="paramGetCalendarCategorySync">
+  <xsd:sequence>
+   <xsd:element name="login" type="xsd:string"/>
+   <xsd:element name="password" type="xsd:string"/>
+   <xsd:element name="date" type="xsd:date"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="calendarCategoryResponse">
+  <xsd:sequence>
+   <xsd:element name="calendarCategory" type="tns:calendarCategory" minOccurs="0" maxOccurs="99999"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="contact">
+  <xsd:sequence>
+   <xsd:element name="id" type="xsd:int"/>
+   <xsd:element name="updated" type="xsd:string"/>
+   <xsd:element name="title" type="xsd:string"/>
+   <xsd:element name="lastname" type="xsd:string"/>
+   <xsd:element name="firstname" type="xsd:string"/>
+   <xsd:element name="middlename" type="xsd:string"/>
+   <xsd:element name="nickname" type="xsd:string"/>
+   <xsd:element name="suffix" type="xsd:string"/>
+   <xsd:element name="birthday" type="xsd:string"/>
+   <xsd:element name="homeaddress" type="xsd:string"/>
+   <xsd:element name="homecity" type="xsd:string"/>
+   <xsd:element name="homepostalcode" type="xsd:string"/>
+   <xsd:element name="homestate" type="xsd:string"/>
+   <xsd:element name="homecountry" type="xsd:string"/>
+   <xsd:element name="homeemail" type="xsd:string"/>
+   <xsd:element name="homephone" type="xsd:string"/>
+   <xsd:element name="homemobile" type="xsd:string"/>
+   <xsd:element name="homefax" type="xsd:string"/>
+   <xsd:element name="homewebpage" type="xsd:string"/>
+   <xsd:element name="businessaddress" type="xsd:string"/>
+   <xsd:element name="businesscity" type="xsd:string"/>
+   <xsd:element name="businesspostalcode" type="xsd:string"/>
+   <xsd:element name="businessstate" type="xsd:string"/>
+   <xsd:element name="businesscountry" type="xsd:string"/>
+   <xsd:element name="businessemail" type="xsd:string"/>
+   <xsd:element name="businessphone" type="xsd:string"/>
+   <xsd:element name="businessmobile" type="xsd:string"/>
+   <xsd:element name="businessfax" type="xsd:string"/>
+   <xsd:element name="businesswebpage" type="xsd:string"/>
+   <xsd:element name="company" type="xsd:string"/>
+   <xsd:element name="department" type="xsd:string"/>
+   <xsd:element name="jobtitle" type="xsd:string"/>
+   <xsd:element name="notes" type="xsd:string"/>
+   <xsd:element name="otheraddress" type="xsd:string"/>
+   <xsd:element name="othercity" type="xsd:string"/>
+   <xsd:element name="otherpostalcode" type="xsd:string"/>
+   <xsd:element name="otherstate" type="xsd:string"/>
+   <xsd:element name="othercountry" type="xsd:string"/>
+   <xsd:element name="otheremail" type="xsd:string"/>
+   <xsd:element name="otherphone" type="xsd:string"/>
+   <xsd:element name="othermobile" type="xsd:string"/>
+   <xsd:element name="otherfax" type="xsd:string"/>
+   <xsd:element name="skypeid" type="xsd:string"/>
+   <xsd:element name="msnid" type="xsd:string"/>
+   <xsd:element name="aimid" type="xsd:string"/>
+   <xsd:element name="pager" type="xsd:string"/>
+   <xsd:element name="carphone" type="xsd:string"/>
+   <xsd:element name="managersname" type="xsd:string"/>
+   <xsd:element name="assistantsname" type="xsd:string"/>
+   <xsd:element name="assistantsphone" type="xsd:string"/>
+   <xsd:element name="parent" type="xsd:string"/>
+   <xsd:element name="spouse" type="xsd:string"/>
+   <xsd:element name="children" type="xsd:string"/>
+   <xsd:element name="custom1" type="xsd:string"/>
+   <xsd:element name="custom2" type="xsd:string"/>
+   <xsd:element name="custom3" type="xsd:string"/>
+   <xsd:element name="custom4" type="xsd:string"/>
+   <xsd:element name="group" type="xsd:string"/>
+   <xsd:element name="photo" type="xsd:base64"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="paramUpdateContact">
+  <xsd:sequence>
+   <xsd:element name="login" type="xsd:string"/>
+   <xsd:element name="password" type="xsd:string"/>
+   <xsd:element name="contact" type="tns:contact" minOccurs="1" maxOccurs="10"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="paramGetContact">
+  <xsd:sequence>
+   <xsd:element name="login" type="xsd:string"/>
+   <xsd:element name="password" type="xsd:string"/>
+   <xsd:element name="id" type="xsd:int"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="paramGetContactSync">
+  <xsd:sequence>
+   <xsd:element name="login" type="xsd:string"/>
+   <xsd:element name="password" type="xsd:string"/>
+   <xsd:element name="date" type="xsd:date"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="contactResponse">
+  <xsd:sequence>
+   <xsd:element name="contact" type="tns:contact" minOccurs="0" maxOccurs="99999"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="contactGroup">
+  <xsd:sequence>
+   <xsd:element name="id" type="xsd:int"/>
+   <xsd:element name="updated" type="xsd:string"/>
+   <xsd:element name="name" type="xsd:string"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="paramUpdateContactGroup">
+  <xsd:sequence>
+   <xsd:element name="login" type="xsd:string"/>
+   <xsd:element name="password" type="xsd:string"/>
+   <xsd:element name="contactGroup" type="tns:contactGroup" minOccurs="1" maxOccurs="10"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="paramGetContactGroup">
+  <xsd:sequence>
+   <xsd:element name="login" type="xsd:string"/>
+   <xsd:element name="password" type="xsd:string"/>
+   <xsd:element name="id" type="xsd:int"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="paramGetContactGroupSync">
+  <xsd:sequence>
+   <xsd:element name="login" type="xsd:string"/>
+   <xsd:element name="password" type="xsd:string"/>
+   <xsd:element name="date" type="xsd:date"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="contactGroupResponse">
+  <xsd:sequence>
+   <xsd:element name="contactGroup" type="tns:contactGroup" minOccurs="0" maxOccurs="99999"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="event">
+  <xsd:sequence>
+   <xsd:element name="id" type="xsd:int"/>
+   <xsd:element name="updated" type="xsd:string"/>
+   <xsd:element name="title" type="xsd:string"/>
+   <xsd:element name="description" type="xsd:string"/>
+   <xsd:element name="location" type="xsd:string"/>
+   <xsd:element name="url" type="xsd:string"/>
+   <xsd:element name="dateBegin" type="xsd:dateTime.iso8601"/>
+   <xsd:element name="dateEnd" type="xsd:dateTime.iso8601"/>
+   <xsd:element name="private" type="xsd:string"/>
+   <xsd:element name="guests" type="xsd:string"/>
+   <xsd:element name="alarmNbMinutesBeforeEvent" type="xsd:string"/>
+   <xsd:element name="alarmEmail" type="xsd:int"/>
+   <xsd:element name="alarmSms" type="xsd:int"/>
+   <xsd:element name="repeatRule" type="xsd:string"/>
+   <xsd:element name="repeatExceptions" type="xsd:string"/>
+   <xsd:element name="id_calendarCategory" type="xsd:int"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="paramUpdateEvent">
+  <xsd:sequence>
+   <xsd:element name="login" type="xsd:string"/>
+   <xsd:element name="password" type="xsd:string"/>
+   <xsd:element name="event" type="tns:event" minOccurs="1" maxOccurs="10"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="paramGetEvent">
+  <xsd:sequence>
+   <xsd:element name="login" type="xsd:string"/>
+   <xsd:element name="password" type="xsd:string"/>
+   <xsd:element name="id" type="xsd:int"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="paramGetEventSync">
+  <xsd:sequence>
+   <xsd:element name="login" type="xsd:string"/>
+   <xsd:element name="password" type="xsd:string"/>
+   <xsd:element name="date" type="xsd:date"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="eventResponse">
+  <xsd:sequence>
+   <xsd:element name="event" type="tns:event" minOccurs="0" maxOccurs="99999"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="holiday">
+  <xsd:sequence>
+   <xsd:element name="id" type="xsd:int"/>
+   <xsd:element name="updated" type="xsd:string"/>
+   <xsd:element name="dateBegin" type="xsd:string"/>
+   <xsd:element name="dateEnd" type="xsd:string"/>
+   <xsd:element name="description" type="xsd:string"/>
+   <xsd:element name="repeatRule" type="xsd:string"/>
+   <xsd:element name="repeatExceptions" type="xsd:string"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="paramUpdateHoliday">
+  <xsd:sequence>
+   <xsd:element name="login" type="xsd:string"/>
+   <xsd:element name="password" type="xsd:string"/>
+   <xsd:element name="holiday" type="tns:holiday" minOccurs="1" maxOccurs="10"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="paramGetHoliday">
+  <xsd:sequence>
+   <xsd:element name="login" type="xsd:string"/>
+   <xsd:element name="password" type="xsd:string"/>
+   <xsd:element name="id" type="xsd:int"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="paramGetHolidaySync">
+  <xsd:sequence>
+   <xsd:element name="login" type="xsd:string"/>
+   <xsd:element name="password" type="xsd:string"/>
+   <xsd:element name="date" type="xsd:date"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="holidayResponse">
+  <xsd:sequence>
+   <xsd:element name="holiday" type="tns:holiday" minOccurs="0" maxOccurs="99999"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="note">
+  <xsd:sequence>
+   <xsd:element name="id" type="xsd:int"/>
+   <xsd:element name="updated" type="xsd:string"/>
+   <xsd:element name="title" type="xsd:string"/>
+   <xsd:element name="description" type="xsd:string"/>
+   <xsd:element name="id_calendarCategory" type="xsd:int"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="paramUpdateNote">
+  <xsd:sequence>
+   <xsd:element name="login" type="xsd:string"/>
+   <xsd:element name="password" type="xsd:string"/>
+   <xsd:element name="note" type="tns:note" minOccurs="1" maxOccurs="10"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="paramGetNote">
+  <xsd:sequence>
+   <xsd:element name="login" type="xsd:string"/>
+   <xsd:element name="password" type="xsd:string"/>
+   <xsd:element name="id" type="xsd:int"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="paramGetNoteSync">
+  <xsd:sequence>
+   <xsd:element name="login" type="xsd:string"/>
+   <xsd:element name="password" type="xsd:string"/>
+   <xsd:element name="date" type="xsd:date"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="noteResponse">
+  <xsd:sequence>
+   <xsd:element name="note" type="tns:note" minOccurs="0" maxOccurs="99999"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="task">
+  <xsd:sequence>
+   <xsd:element name="id" type="xsd:int"/>
+   <xsd:element name="updated" type="xsd:string"/>
+   <xsd:element name="title" type="xsd:string"/>
+   <xsd:element name="description" type="xsd:string"/>
+   <xsd:element name="priority" type="xsd:int"/>
+   <xsd:element name="status" type="xsd:string"/>
+   <xsd:element name="dateBegin" type="xsd:dateTime.iso8601"/>
+   <xsd:element name="dateDue" type="xsd:dateTime.iso8601"/>
+   <xsd:element name="dateCompleted" type="xsd:dateTime.iso8601"/>
+   <xsd:element name="percentComplete" type="xsd:int"/>
+   <xsd:element name="alarmNbMinutesBeforeEvent" type="xsd:string"/>
+   <xsd:element name="alarmEmail" type="xsd:int"/>
+   <xsd:element name="alarmSms" type="xsd:int"/>
+   <xsd:element name="repeatRule" type="xsd:string"/>
+   <xsd:element name="repeatExceptions" type="xsd:string"/>
+   <xsd:element name="id_calendarCategory" type="xsd:int"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="paramUpdateTask">
+  <xsd:sequence>
+   <xsd:element name="login" type="xsd:string"/>
+   <xsd:element name="password" type="xsd:string"/>
+   <xsd:element name="task" type="tns:task" minOccurs="1" maxOccurs="10"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="paramGetTask">
+  <xsd:sequence>
+   <xsd:element name="login" type="xsd:string"/>
+   <xsd:element name="password" type="xsd:string"/>
+   <xsd:element name="id" type="xsd:int"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="paramGetTaskSync">
+  <xsd:sequence>
+   <xsd:element name="login" type="xsd:string"/>
+   <xsd:element name="password" type="xsd:string"/>
+   <xsd:element name="date" type="xsd:date"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="taskResponse">
+  <xsd:sequence>
+   <xsd:element name="task" type="tns:task" minOccurs="0" maxOccurs="99999"/>
+  </xsd:sequence>
+ </xsd:complexType>
+</xsd:schema>
+</types>
+<message name="addBookmarkRequest"><part name="param" type="tns:paramUpdateBookmark"/></message>
+<message name="addBookmarkResponse"><part name="id" type="xsd:int"/></message>
+<message name="deleteBookmarkRequest"><part name="param" type="tns:paramDelete"/></message>
+<message name="deleteBookmarkResponse"><part name="ok" type="xsd:boolean"/></message>
+<message name="getBookmarkRequest"><part name="param" type="tns:paramGetBookmark"/></message>
+<message name="getBookmarkResponse"><part name="return" type="tns:bookmarkResponse"/></message>
+<message name="getBookmarkSyncRequest"><part name="param" type="tns:paramGetBookmarkSync"/></message>
+<message name="getBookmarkSyncResponse"><part name="return" type="tns:bookmarkResponse"/></message>
+<message name="modifyBookmarkRequest"><part name="param" type="tns:paramUpdateBookmark"/></message>
+<message name="modifyBookmarkResponse"><part name="ok" type="xsd:boolean"/></message>
+<message name="searchBookmarkRequest"><part name="param" type="tns:paramSearch"/></message>
+<message name="searchBookmarkResponse"><part name="return" type="tns:bookmarkResponse"/></message>
+<message name="addBookmarkFolderRequest"><part name="param" type="tns:paramUpdateBookmarkFolder"/></message>
+<message name="addBookmarkFolderResponse"><part name="id" type="xsd:int"/></message>
+<message name="deleteBookmarkFolderRequest"><part name="param" type="tns:paramDelete"/></message>
+<message name="deleteBookmarkFolderResponse"><part name="ok" type="xsd:boolean"/></message>
+<message name="getBookmarkFolderRequest"><part name="param" type="tns:paramGetBookmarkFolder"/></message>
+<message name="getBookmarkFolderResponse"><part name="return" type="tns:bookmarkFolderResponse"/></message>
+<message name="getBookmarkFolderSyncRequest"><part name="param" type="tns:paramGetBookmarkFolderSync"/></message>
+<message name="getBookmarkFolderSyncResponse"><part name="return" type="tns:bookmarkFolderResponse"/></message>
+<message name="modifyBookmarkFolderRequest"><part name="param" type="tns:paramUpdateBookmarkFolder"/></message>
+<message name="modifyBookmarkFolderResponse"><part name="ok" type="xsd:boolean"/></message>
+<message name="searchBookmarkFolderRequest"><part name="param" type="tns:paramSearch"/></message>
+<message name="searchBookmarkFolderResponse"><part name="return" type="tns:bookmarkFolderResponse"/></message>
+<message name="addCalendarCategoryRequest"><part name="param" type="tns:paramUpdateCalendarCategory"/></message>
+<message name="addCalendarCategoryResponse"><part name="id" type="xsd:int"/></message>
+<message name="deleteCalendarCategoryRequest"><part name="param" type="tns:paramDelete"/></message>
+<message name="deleteCalendarCategoryResponse"><part name="ok" type="xsd:boolean"/></message>
+<message name="getCalendarCategoryRequest"><part name="param" type="tns:paramGetCalendarCategory"/></message>
+<message name="getCalendarCategoryResponse"><part name="return" type="tns:calendarCategoryResponse"/></message>
+<message name="getCalendarCategorySyncRequest"><part name="param" type="tns:paramGetCalendarCategorySync"/></message>
+<message name="getCalendarCategorySyncResponse"><part name="return" type="tns:calendarCategoryResponse"/></message>
+<message name="modifyCalendarCategoryRequest"><part name="param" type="tns:paramUpdateCalendarCategory"/></message>
+<message name="modifyCalendarCategoryResponse"><part name="ok" type="xsd:boolean"/></message>
+<message name="searchCalendarCategoryRequest"><part name="param" type="tns:paramSearch"/></message>
+<message name="searchCalendarCategoryResponse"><part name="return" type="tns:calendarCategoryResponse"/></message>
+<message name="addContactRequest"><part name="param" type="tns:paramUpdateContact"/></message>
+<message name="addContactResponse"><part name="id" type="xsd:int"/></message>
+<message name="deleteContactRequest"><part name="param" type="tns:paramDelete"/></message>
+<message name="deleteContactResponse"><part name="ok" type="xsd:boolean"/></message>
+<message name="getContactRequest"><part name="param" type="tns:paramGetContact"/></message>
+<message name="getContactResponse"><part name="return" type="tns:contactResponse"/></message>
+<message name="getContactSyncRequest"><part name="param" type="tns:paramGetContactSync"/></message>
+<message name="getContactSyncResponse"><part name="return" type="tns:contactResponse"/></message>
+<message name="modifyContactRequest"><part name="param" type="tns:paramUpdateContact"/></message>
+<message name="modifyContactResponse"><part name="ok" type="xsd:boolean"/></message>
+<message name="searchContactRequest"><part name="param" type="tns:paramSearch"/></message>
+<message name="searchContactResponse"><part name="return" type="tns:contactResponse"/></message>
+<message name="addContactGroupRequest"><part name="param" type="tns:paramUpdateContactGroup"/></message>
+<message name="addContactGroupResponse"><part name="id" type="xsd:int"/></message>
+<message name="deleteContactGroupRequest"><part name="param" type="tns:paramDelete"/></message>
+<message name="deleteContactGroupResponse"><part name="ok" type="xsd:boolean"/></message>
+<message name="getContactGroupRequest"><part name="param" type="tns:paramGetContactGroup"/></message>
+<message name="getContactGroupResponse"><part name="return" type="tns:contactGroupResponse"/></message>
+<message name="getContactGroupSyncRequest"><part name="param" type="tns:paramGetContactGroupSync"/></message>
+<message name="getContactGroupSyncResponse"><part name="return" type="tns:contactGroupResponse"/></message>
+<message name="modifyContactGroupRequest"><part name="param" type="tns:paramUpdateContactGroup"/></message>
+<message name="modifyContactGroupResponse"><part name="ok" type="xsd:boolean"/></message>
+<message name="searchContactGroupRequest"><part name="param" type="tns:paramSearch"/></message>
+<message name="searchContactGroupResponse"><part name="return" type="tns:contactGroupResponse"/></message>
+<message name="addEventRequest"><part name="param" type="tns:paramUpdateEvent"/></message>
+<message name="addEventResponse"><part name="id" type="xsd:int"/></message>
+<message name="deleteEventRequest"><part name="param" type="tns:paramDelete"/></message>
+<message name="deleteEventResponse"><part name="ok" type="xsd:boolean"/></message>
+<message name="getEventRequest"><part name="param" type="tns:paramGetEvent"/></message>
+<message name="getEventResponse"><part name="return" type="tns:eventResponse"/></message>
+<message name="getEventSyncRequest"><part name="param" type="tns:paramGetEventSync"/></message>
+<message name="getEventSyncResponse"><part name="return" type="tns:eventResponse"/></message>
+<message name="modifyEventRequest"><part name="param" type="tns:paramUpdateEvent"/></message>
+<message name="modifyEventResponse"><part name="ok" type="xsd:boolean"/></message>
+<message name="searchEventRequest"><part name="param" type="tns:paramSearch"/></message>
+<message name="searchEventResponse"><part name="return" type="tns:eventResponse"/></message>
+<message name="addHolidayRequest"><part name="param" type="tns:paramUpdateHoliday"/></message>
+<message name="addHolidayResponse"><part name="id" type="xsd:int"/></message>
+<message name="deleteHolidayRequest"><part name="param" type="tns:paramDelete"/></message>
+<message name="deleteHolidayResponse"><part name="ok" type="xsd:boolean"/></message>
+<message name="getHolidayRequest"><part name="param" type="tns:paramGetHoliday"/></message>
+<message name="getHolidayResponse"><part name="return" type="tns:holidayResponse"/></message>
+<message name="getHolidaySyncRequest"><part name="param" type="tns:paramGetHolidaySync"/></message>
+<message name="getHolidaySyncResponse"><part name="return" type="tns:holidayResponse"/></message>
+<message name="modifyHolidayRequest"><part name="param" type="tns:paramUpdateHoliday"/></message>
+<message name="modifyHolidayResponse"><part name="ok" type="xsd:boolean"/></message>
+<message name="searchHolidayRequest"><part name="param" type="tns:paramSearch"/></message>
+<message name="searchHolidayResponse"><part name="return" type="tns:holidayResponse"/></message>
+<message name="addNoteRequest"><part name="param" type="tns:paramUpdateNote"/></message>
+<message name="addNoteResponse"><part name="id" type="xsd:int"/></message>
+<message name="deleteNoteRequest"><part name="param" type="tns:paramDelete"/></message>
+<message name="deleteNoteResponse"><part name="ok" type="xsd:boolean"/></message>
+<message name="getNoteRequest"><part name="param" type="tns:paramGetNote"/></message>
+<message name="getNoteResponse"><part name="return" type="tns:noteResponse"/></message>
+<message name="getNoteSyncRequest"><part name="param" type="tns:paramGetNoteSync"/></message>
+<message name="getNoteSyncResponse"><part name="return" type="tns:noteResponse"/></message>
+<message name="modifyNoteRequest"><part name="param" type="tns:paramUpdateNote"/></message>
+<message name="modifyNoteResponse"><part name="ok" type="xsd:boolean"/></message>
+<message name="searchNoteRequest"><part name="param" type="tns:paramSearch"/></message>
+<message name="searchNoteResponse"><part name="return" type="tns:noteResponse"/></message>
+<message name="addTaskRequest"><part name="param" type="tns:paramUpdateTask"/></message>
+<message name="addTaskResponse"><part name="id" type="xsd:int"/></message>
+<message name="deleteTaskRequest"><part name="param" type="tns:paramDelete"/></message>
+<message name="deleteTaskResponse"><part name="ok" type="xsd:boolean"/></message>
+<message name="getTaskRequest"><part name="param" type="tns:paramGetTask"/></message>
+<message name="getTaskResponse"><part name="return" type="tns:taskResponse"/></message>
+<message name="getTaskSyncRequest"><part name="param" type="tns:paramGetTaskSync"/></message>
+<message name="getTaskSyncResponse"><part name="return" type="tns:taskResponse"/></message>
+<message name="modifyTaskRequest"><part name="param" type="tns:paramUpdateTask"/></message>
+<message name="modifyTaskResponse"><part name="ok" type="xsd:boolean"/></message>
+<message name="searchTaskRequest"><part name="param" type="tns:paramSearch"/></message>
+<message name="searchTaskResponse"><part name="return" type="tns:taskResponse"/></message>
+<portType name="MemotooSoapPortType"><operation name="addBookmark"><documentation>Add bookmark</documentation><input message="tns:addBookmarkRequest"/><output message="tns:addBookmarkResponse"/></operation><operation name="deleteBookmark"><documentation>Delete one bookmark</documentation><input message="tns:deleteBookmarkRequest"/><output message="tns:deleteBookmarkResponse"/></operation><operation name="getBookmark"><documentation>Select one of bookmark</documentation><input message="tns:getBookmarkRequest"/><output message="tns:getBookmarkResponse"/></operation><operation name="getBookmarkSync"><documentation>Get the bookmark modified since date</documentation><input message="tns:getBookmarkSyncRequest"/><output message="tns:getBookmarkSyncResponse"/></operation><operation name="modifyBookmark"><documentation>Modify bookmark</documentation><input message="tns:modifyBookmarkRequest"/><output message="tns:modifyBookmarkResponse"/></operation><operation name="searchBookmark"><documentation>Select a list of bookmark</documentation><input message="tns:searchBookmarkRequest"/><output message="tns:searchBookmarkResponse"/></operation><operation name="addBookmarkFolder"><documentation>Add bookmarkFolder</documentation><input message="tns:addBookmarkFolderRequest"/><output message="tns:addBookmarkFolderResponse"/></operation><operation name="deleteBookmarkFolder"><documentation>Delete one bookmarkFolder</documentation><input message="tns:deleteBookmarkFolderRequest"/><output message="tns:deleteBookmarkFolderResponse"/></operation><operation name="getBookmarkFolder"><documentation>Select one of bookmarkFolder</documentation><input message="tns:getBookmarkFolderRequest"/><output message="tns:getBookmarkFolderResponse"/></operation><operation name="getBookmarkFolderSync"><documentation>Get the bookmarkFolder modified since date</documentation><input message="tns:getBookmarkFolderSyncRequest"/><output message="tns:getBookmarkFolderSyncResponse"/></operation><operation name="modifyBookmarkFolder"><documentation>Modify bookmarkFolder</documentation><input message="tns:modifyBookmarkFolderRequest"/><output message="tns:modifyBookmarkFolderResponse"/></operation><operation name="searchBookmarkFolder"><documentation>Select a list of bookmarkFolder</documentation><input message="tns:searchBookmarkFolderRequest"/><output message="tns:searchBookmarkFolderResponse"/></operation><operation name="addCalendarCategory"><documentation>Add calendarCategory</documentation><input message="tns:addCalendarCategoryRequest"/><output message="tns:addCalendarCategoryResponse"/></operation><operation name="deleteCalendarCategory"><documentation>Delete one calendarCategory</documentation><input message="tns:deleteCalendarCategoryRequest"/><output message="tns:deleteCalendarCategoryResponse"/></operation><operation name="getCalendarCategory"><documentation>Select one of calendarCategory</documentation><input message="tns:getCalendarCategoryRequest"/><output message="tns:getCalendarCategoryResponse"/></operation><operation name="getCalendarCategorySync"><documentation>Get the calendarCategory modified since date</documentation><input message="tns:getCalendarCategorySyncRequest"/><output message="tns:getCalendarCategorySyncResponse"/></operation><operation name="modifyCalendarCategory"><documentation>Modify calendarCategory</documentation><input message="tns:modifyCalendarCategoryRequest"/><output message="tns:modifyCalendarCategoryResponse"/></operation><operation name="searchCalendarCategory"><documentation>Select a list of calendarCategory</documentation><input message="tns:searchCalendarCategoryRequest"/><output message="tns:searchCalendarCategoryResponse"/></operation><operation name="addContact"><documentation>Add contact</documentation><input message="tns:addContactRequest"/><output message="tns:addContactResponse"/></operation><operation name="deleteContact"><documentation>Delete one contact</documentation><input message="tns:deleteContactRequest"/><output message="tns:deleteContactResponse"/></operation><operation name="getContact"><documentation>Select one of contact</documentation><input message="tns:getContactRequest"/><output message="tns:getContactResponse"/></operation><operation name="getContactSync"><documentation>Get the contact modified since date</documentation><input message="tns:getContactSyncRequest"/><output message="tns:getContactSyncResponse"/></operation><operation name="modifyContact"><documentation>Modify contact</documentation><input message="tns:modifyContactRequest"/><output message="tns:modifyContactResponse"/></operation><operation name="searchContact"><documentation>Select a list of contact</documentation><input message="tns:searchContactRequest"/><output message="tns:searchContactResponse"/></operation><operation name="addContactGroup"><documentation>Add contactGroup</documentation><input message="tns:addContactGroupRequest"/><output message="tns:addContactGroupResponse"/></operation><operation name="deleteContactGroup"><documentation>Delete one contactGroup</documentation><input message="tns:deleteContactGroupRequest"/><output message="tns:deleteContactGroupResponse"/></operation><operation name="getContactGroup"><documentation>Select one of contactGroup</documentation><input message="tns:getContactGroupRequest"/><output message="tns:getContactGroupResponse"/></operation><operation name="getContactGroupSync"><documentation>Get the contactGroup modified since date</documentation><input message="tns:getContactGroupSyncRequest"/><output message="tns:getContactGroupSyncResponse"/></operation><operation name="modifyContactGroup"><documentation>Modify contactGroup</documentation><input message="tns:modifyContactGroupRequest"/><output message="tns:modifyContactGroupResponse"/></operation><operation name="searchContactGroup"><documentation>Select a list of contactGroup</documentation><input message="tns:searchContactGroupRequest"/><output message="tns:searchContactGroupResponse"/></operation><operation name="addEvent"><documentation>Add event</documentation><input message="tns:addEventRequest"/><output message="tns:addEventResponse"/></operation><operation name="deleteEvent"><documentation>Delete one event</documentation><input message="tns:deleteEventRequest"/><output message="tns:deleteEventResponse"/></operation><operation name="getEvent"><documentation>Select one of event</documentation><input message="tns:getEventRequest"/><output message="tns:getEventResponse"/></operation><operation name="getEventSync"><documentation>Get the event modified since date</documentation><input message="tns:getEventSyncRequest"/><output message="tns:getEventSyncResponse"/></operation><operation name="modifyEvent"><documentation>Modify event</documentation><input message="tns:modifyEventRequest"/><output message="tns:modifyEventResponse"/></operation><operation name="searchEvent"><documentation>Select a list of event</documentation><input message="tns:searchEventRequest"/><output message="tns:searchEventResponse"/></operation><operation name="addHoliday"><documentation>Add holiday</documentation><input message="tns:addHolidayRequest"/><output message="tns:addHolidayResponse"/></operation><operation name="deleteHoliday"><documentation>Delete one holiday</documentation><input message="tns:deleteHolidayRequest"/><output message="tns:deleteHolidayResponse"/></operation><operation name="getHoliday"><documentation>Select one of holiday</documentation><input message="tns:getHolidayRequest"/><output message="tns:getHolidayResponse"/></operation><operation name="getHolidaySync"><documentation>Get the holiday modified since date</documentation><input message="tns:getHolidaySyncRequest"/><output message="tns:getHolidaySyncResponse"/></operation><operation name="modifyHoliday"><documentation>Modify holiday</documentation><input message="tns:modifyHolidayRequest"/><output message="tns:modifyHolidayResponse"/></operation><operation name="searchHoliday"><documentation>Select a list of holiday</documentation><input message="tns:searchHolidayRequest"/><output message="tns:searchHolidayResponse"/></operation><operation name="addNote"><documentation>Add note</documentation><input message="tns:addNoteRequest"/><output message="tns:addNoteResponse"/></operation><operation name="deleteNote"><documentation>Delete one note</documentation><input message="tns:deleteNoteRequest"/><output message="tns:deleteNoteResponse"/></operation><operation name="getNote"><documentation>Select one of note</documentation><input message="tns:getNoteRequest"/><output message="tns:getNoteResponse"/></operation><operation name="getNoteSync"><documentation>Get the note modified since date</documentation><input message="tns:getNoteSyncRequest"/><output message="tns:getNoteSyncResponse"/></operation><operation name="modifyNote"><documentation>Modify note</documentation><input message="tns:modifyNoteRequest"/><output message="tns:modifyNoteResponse"/></operation><operation name="searchNote"><documentation>Select a list of note</documentation><input message="tns:searchNoteRequest"/><output message="tns:searchNoteResponse"/></operation><operation name="addTask"><documentation>Add task</documentation><input message="tns:addTaskRequest"/><output message="tns:addTaskResponse"/></operation><operation name="deleteTask"><documentation>Delete one task</documentation><input message="tns:deleteTaskRequest"/><output message="tns:deleteTaskResponse"/></operation><operation name="getTask"><documentation>Select one of task</documentation><input message="tns:getTaskRequest"/><output message="tns:getTaskResponse"/></operation><operation name="getTaskSync"><documentation>Get the task modified since date</documentation><input message="tns:getTaskSyncRequest"/><output message="tns:getTaskSyncResponse"/></operation><operation name="modifyTask"><documentation>Modify task</documentation><input message="tns:modifyTaskRequest"/><output message="tns:modifyTaskResponse"/></operation><operation name="searchTask"><documentation>Select a list of task</documentation><input message="tns:searchTaskRequest"/><output message="tns:searchTaskResponse"/></operation></portType>
+<binding name="MemotooSoapBinding" type="tns:MemotooSoapPortType"><soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/><operation name="addBookmark"><soap:operation soapAction="urn:memotooSoap#addBookmark" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="deleteBookmark"><soap:operation soapAction="urn:memotooSoap#deleteBookmark" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="getBookmark"><soap:operation soapAction="urn:memotooSoap#getBookmark" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="getBookmarkSync"><soap:operation soapAction="urn:memotooSoap#getBookmarkSync" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="modifyBookmark"><soap:operation soapAction="urn:memotooSoap#modifyBookmark" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="searchBookmark"><soap:operation soapAction="urn:memotooSoap#searchBookmark" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="addBookmarkFolder"><soap:operation soapAction="urn:memotooSoap#addBookmarkFolder" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="deleteBookmarkFolder"><soap:operation soapAction="urn:memotooSoap#deleteBookmarkFolder" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="getBookmarkFolder"><soap:operation soapAction="urn:memotooSoap#getBookmarkFolder" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="getBookmarkFolderSync"><soap:operation soapAction="urn:memotooSoap#getBookmarkFolderSync" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="modifyBookmarkFolder"><soap:operation soapAction="urn:memotooSoap#modifyBookmarkFolder" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="searchBookmarkFolder"><soap:operation soapAction="urn:memotooSoap#searchBookmarkFolder" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="addCalendarCategory"><soap:operation soapAction="urn:memotooSoap#addCalendarCategory" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="deleteCalendarCategory"><soap:operation soapAction="urn:memotooSoap#deleteCalendarCategory" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="getCalendarCategory"><soap:operation soapAction="urn:memotooSoap#getCalendarCategory" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="getCalendarCategorySync"><soap:operation soapAction="urn:memotooSoap#getCalendarCategorySync" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="modifyCalendarCategory"><soap:operation soapAction="urn:memotooSoap#modifyCalendarCategory" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="searchCalendarCategory"><soap:operation soapAction="urn:memotooSoap#searchCalendarCategory" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="addContact"><soap:operation soapAction="urn:memotooSoap#addContact" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="deleteContact"><soap:operation soapAction="urn:memotooSoap#deleteContact" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="getContact"><soap:operation soapAction="urn:memotooSoap#getContact" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="getContactSync"><soap:operation soapAction="urn:memotooSoap#getContactSync" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="modifyContact"><soap:operation soapAction="urn:memotooSoap#modifyContact" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="searchContact"><soap:operation soapAction="urn:memotooSoap#searchContact" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="addContactGroup"><soap:operation soapAction="urn:memotooSoap#addContactGroup" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="deleteContactGroup"><soap:operation soapAction="urn:memotooSoap#deleteContactGroup" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="getContactGroup"><soap:operation soapAction="urn:memotooSoap#getContactGroup" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="getContactGroupSync"><soap:operation soapAction="urn:memotooSoap#getContactGroupSync" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="modifyContactGroup"><soap:operation soapAction="urn:memotooSoap#modifyContactGroup" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="searchContactGroup"><soap:operation soapAction="urn:memotooSoap#searchContactGroup" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="addEvent"><soap:operation soapAction="urn:memotooSoap#addEvent" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="deleteEvent"><soap:operation soapAction="urn:memotooSoap#deleteEvent" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="getEvent"><soap:operation soapAction="urn:memotooSoap#getEvent" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="getEventSync"><soap:operation soapAction="urn:memotooSoap#getEventSync" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="modifyEvent"><soap:operation soapAction="urn:memotooSoap#modifyEvent" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="searchEvent"><soap:operation soapAction="urn:memotooSoap#searchEvent" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="addHoliday"><soap:operation soapAction="urn:memotooSoap#addHoliday" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="deleteHoliday"><soap:operation soapAction="urn:memotooSoap#deleteHoliday" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="getHoliday"><soap:operation soapAction="urn:memotooSoap#getHoliday" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="getHolidaySync"><soap:operation soapAction="urn:memotooSoap#getHolidaySync" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="modifyHoliday"><soap:operation soapAction="urn:memotooSoap#modifyHoliday" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="searchHoliday"><soap:operation soapAction="urn:memotooSoap#searchHoliday" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="addNote"><soap:operation soapAction="urn:memotooSoap#addNote" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="deleteNote"><soap:operation soapAction="urn:memotooSoap#deleteNote" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="getNote"><soap:operation soapAction="urn:memotooSoap#getNote" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="getNoteSync"><soap:operation soapAction="urn:memotooSoap#getNoteSync" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="modifyNote"><soap:operation soapAction="urn:memotooSoap#modifyNote" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="searchNote"><soap:operation soapAction="urn:memotooSoap#searchNote" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="addTask"><soap:operation soapAction="urn:memotooSoap#addTask" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="deleteTask"><soap:operation soapAction="urn:memotooSoap#deleteTask" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="getTask"><soap:operation soapAction="urn:memotooSoap#getTask" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="getTaskSync"><soap:operation soapAction="urn:memotooSoap#getTaskSync" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="modifyTask"><soap:operation soapAction="urn:memotooSoap#modifyTask" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation><operation name="searchTask"><soap:operation soapAction="urn:memotooSoap#searchTask" style="rpc"/><input><soap:body use="literal" namespace="urn:memotooSoap"/></input><output><soap:body use="literal" namespace="urn:memotooSoap"/></output></operation></binding>
+<service name="MemotooSoap"><port name="MemotooSoapPort" binding="tns:MemotooSoapBinding"><soap:address location="http://www.memotoo.com/SOAP-server.php"/></port></service>
+</definitions>

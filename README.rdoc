@@ -35,7 +35,7 @@ get a contact from id:
    
 search for contacts:
 
-   @response = @connect.searchContact("ka")
+   @response = @connect.searchContact({:search=>"ka"})
      
 modify a contact:
 
