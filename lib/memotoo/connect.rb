@@ -1,6 +1,7 @@
 require "savon"
 require "memotoo/core-ext/hash"
 require "memotoo/contact/contact"
+require "memotoo/contact/contact_group"
 
 module Memotoo
 
