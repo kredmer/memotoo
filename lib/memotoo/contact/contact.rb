@@ -39,18 +39,19 @@ module Memotoo
     	#e.g. @connect.searchContact({:search=>"ka", :limit_nb=>50})
 
     def searchContact(searchparameter={})
+        soapname=this_method
     	check=has_fields(searchparameter, :search)
     	if check[0]
 			search = { 	:limit_start => '0',
 						:limit_nb => '100'
 			 		}.merge!(searchparameter)
-			search_response = apicall(:searchContact, search)
+			search_response = apicall(soapname.to_sym, search)
 		# returns an array of contacts from search result
 		if search_response.nil? || search_response==""
 			 nil
 		else
-			#search_response.to_hash.seek :search_contact_response, :return, :contact
-			[this_method, this_method.class]
+			search_response.to_hash.seek (soapname+"_response").to_sym, :return, :contact
+			#[this_method, this_method.class]
 		end
 		
 		else
