@@ -38,6 +38,11 @@ module Memotoo
 
 
     def addContactGroup(groupname)
+    
+    search = { 	:id => '',
+				:updated => ''
+			 }.merge!(:name=>groupname)
+    
     	#check=has_fields(details, :lastname)
 		#if check[0]
 			contact = apicall(:addContactGroup, { :contactGroup => groupname })
