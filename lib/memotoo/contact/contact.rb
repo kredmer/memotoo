@@ -51,9 +51,12 @@ module Memotoo
 			 nil
 		else
 		
-		response_name=(soapname.underscore+"_response").to_sym
+		#response_name=(soapname.underscore+"_response").to_sym
 		#response_vars=
-		search_response.to_hash.seek response_name, :return, :contact
+		
+		format_result(search_response, :return, :contact)
+		
+		#search_response.to_hash.seek (soapname.underscore+"_response").to_sym, :return, :contact
 			#[this_method, this_method.class]
 			#[response_name,search_response]
 		end
@@ -63,6 +66,15 @@ module Memotoo
 			go_home(check[1])
 		end
     end
+    
+    def format_result(response, *_keys_)
+    
+     response.to_hash.seek calling_method.underscore+"_response", _keys_
+    
+    
+    
+    end
+    
     
 		# id = integer
 		# e.g. @connect.getContact(12345)
