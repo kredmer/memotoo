@@ -17,7 +17,7 @@ module Memotoo
 			#addparams = { 	:id => '',
 			#			:updated => ''
 			#		 }.merge!(details)
-					format_result(addApiCall({:bookmark => addparams}), :id)
+					format_result(addApiCall({:bookmark => details}), :id)
 		end
 	end
 
