@@ -8,62 +8,44 @@ module Memotoo
 #     
 #                :search_contact_group,
 #                :add_contact_group,    
-#:delete_contact_group,
-#:get_contact_group,
-#:get_contact_group_sync
-#:modify_contact_group
+#                :delete_contact_group,
+#                :get_contact_group,
+#                :get_contact_group_sync
+#                :modify_contact_group
 
     def searchContactGroup(searchparameter={})
-#    	check=has_fields(searchparameter, :search)
-#    	if check[0]
-#			search = { 	:limit_start => '0',
-#						:limit_nb => '100'
-#			 		}.merge!(searchparameter)
-#			search_response = apicall(:searchContactGroup, search)
-#		# returns an array of contactgroups from search result
-#		if search_response.nil? || search_response==""
-#			 nil
-#		else
-#			search_response.to_hash.seek :search_contact_group_response, :return, :contact_group
-#		end
-#		
-#		else
-#			# returns false and a message
-#			go_home(check[1])
-#		end
 		if has_needed_search_parameter(searchparameter)
 			format_result(searchApiCall(searchparameter), :return, :contact_group)
 		end
-
-
     end
 
-
-
-
-
     def addContactGroup(groupname)
-    
     addparams = { 	:id => '',
 				:updated => ''
 			 }.merge!(:name=>groupname)
-    
-    	#check=has_fields(details, :lastname)
-		#if check[0]
-			contact = apicall(:addContactGroup, { :contactGroup => addparams })
-			# return the id from the new contact -> get it in my own db? maybe
-			contact.to_hash.seek :add_contact_group_response, :id
-		#else
-		# returns false, if lastname is not given
-		#	go_home(check[1])		
-		#end
+			
+			format_result(addApiCall({:contactGroup => addparams}), :id)
 	end
 
 
+    def deleteContactGroup(id)
+		format_result(deleteApiCall(id), :ok)
+    end
+
+	def getContactGroup(id)
+		format_result(getApiCall(id), :return, :contact_group)
+	end
 
 
+	def getContactGroupSync(datetime)
+		format_result(getSyncApiCall(datetime), :return, :contact_group)
+	end
 
-
+    def modifyContactGroup(details={})
+		if has_needed_fields(details, :name, :id)
+			format_result(modifyApiCall({:contactGroup => details}), :ok)
+		end
+    end
 
 
 
