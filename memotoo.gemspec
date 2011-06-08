@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{memotoo}
-  s.version = "1.0.4"
+  s.version = "1.0.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Karsten Redmer"]
-  s.date = %q{2011-06-07}
+  s.authors = [%q{Karsten Redmer}]
+  s.date = %q{2011-06-08}
   s.description = %q{Unofficial gem for connecting to memotoo.com with their soap-api and handle your contact needs. Memotoo lets your synchronize all your contacts, events and tasks with yahoo, gmail, facebook, xing, outlook, your mobile-phone and more. You can also get your e-mails in one place.}
   s.email = %q{k.redmer@yahoo.de}
   s.extra_rdoc_files = [
@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
   s.files = [
     ".document",
     ".gemtest",
+    ".rvmrc-old",
     "Gemfile",
     "Gemfile.lock",
     "LICENSE.txt",
@@ -28,15 +29,19 @@ Gem::Specification.new do |s|
     "lib/memotoo.rb",
     "lib/memotoo/connect.rb",
     "lib/memotoo/contact/contact.rb",
+    "lib/memotoo/contact/contact_group.rb",
     "lib/memotoo/core-ext/hash.rb",
+    "lib/memotoo/core-ext/kernel.rb",
+    "lib/memotoo/wsdl/http.xml",
+    "lib/memotoo/wsdl/https.xml",
     "memotoo.gemspec",
     "test/helper.rb",
     "test/test_memotoo.rb"
   ]
   s.homepage = %q{http://github.com/kredmer/memotoo}
-  s.licenses = ["MIT"]
-  s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.6.2}
+  s.licenses = [%q{MIT}]
+  s.require_paths = [%q{lib}]
+  s.rubygems_version = %q{1.8.5}
   s.summary = %q{Unofficial gem for connecting to memotoo.com with their given soap-api}
   s.test_files = [
     "test/helper.rb",
@@ -47,7 +52,9 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<savon>, [">= 0"])
+      s.add_runtime_dependency(%q<i18n>, [">= 0"])
+      s.add_runtime_dependency(%q<activesupport>, [">= 2.3.5"])
+      s.add_runtime_dependency(%q<savon>, ["~> 0.9.2"])
       s.add_development_dependency(%q<rack>, ["~> 1.1.2"])
       s.add_development_dependency(%q<shoulda>, [">= 0"])
       s.add_development_dependency(%q<bundler>, ["~> 1.0.0"])
@@ -55,7 +62,9 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<rcov>, [">= 0"])
       s.add_runtime_dependency(%q<savon>, [">= 0"])
     else
-      s.add_dependency(%q<savon>, [">= 0"])
+      s.add_dependency(%q<i18n>, [">= 0"])
+      s.add_dependency(%q<activesupport>, [">= 2.3.5"])
+      s.add_dependency(%q<savon>, ["~> 0.9.2"])
       s.add_dependency(%q<rack>, ["~> 1.1.2"])
       s.add_dependency(%q<shoulda>, [">= 0"])
       s.add_dependency(%q<bundler>, ["~> 1.0.0"])
@@ -64,7 +73,9 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<savon>, [">= 0"])
     end
   else
-    s.add_dependency(%q<savon>, [">= 0"])
+    s.add_dependency(%q<i18n>, [">= 0"])
+    s.add_dependency(%q<activesupport>, [">= 2.3.5"])
+    s.add_dependency(%q<savon>, ["~> 0.9.2"])
     s.add_dependency(%q<rack>, ["~> 1.1.2"])
     s.add_dependency(%q<shoulda>, [">= 0"])
     s.add_dependency(%q<bundler>, ["~> 1.0.0"])
