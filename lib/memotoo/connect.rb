@@ -15,6 +15,8 @@ module Memotoo
 
     # will hold username and password in a hash style (used for all requests)
     attr_accessor :opts
+    
+    SEARCHDEFAULTS = { 	:limit_start => '0', :limit_nb => '100' }
      
      #[https] default:true for the SOAP service.
      # example: @connect=Memotoo::Connect.new("myusername","mypassword")
@@ -52,6 +54,35 @@ module Memotoo
 		end
     end
     
+    
+    def searchApiCall(searchparameter)
+		search = SEARCHDEFAULTS.merge!(searchparameter)
+		apicall(calling_method.to_sym, search)
+    end
+    
+    def getApiCall(id)
+    	apicall(calling_method.to_sym, { :id => id })
+    end
+    
+    def getSyncApiCall(datetime)
+    	date2time=Time.mktime(*ParseDate.parsedate(datetime))
+    	formated_date=date2time.strftime("%Y-%m-%d %H:%M:%S")
+    	apicall(calling_method.to_sym, { :date => formated_date })
+    end
+    
+    def deleteApiCall(id)
+	    apicall(calling_method.to_sym, { :id => id })
+    end
+    
+    def modifyApiCall(details)
+		apicall(calling_method.to_sym, details )    
+    end
+    
+    def addApiCall(details)
+		apicall(calling_method.to_sym, details )    
+    end
+    
+    
     # used internally for a request
     def apicall(action, parameter)
 		
@@ -73,6 +104,12 @@ module Memotoo
 		#				puts error.to_s
 		end
     end
+    
+	def format_result(response, *_keys_)
+		output_key = [(calling_method.underscore+"_response").to_sym] | _keys_
+		response.nil? ? nil : response.to_hash.seek2(output_key) 
+    end
+    
     
     
   end # class

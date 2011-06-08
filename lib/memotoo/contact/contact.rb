@@ -37,40 +37,24 @@ module Memotoo
     	#       limit_start
     	#       limit_nb
     	#e.g. @connect.searchContact({:search=>"ka", :limit_nb=>50})
+    	#
+    	# returns nil or a hash of one contact or an array of contacts
+    	#
 
     def searchContact(searchparameter={})
-    
-    	check=has_fields(searchparameter, :search)
-    	if check[0]
-			search = { 	:limit_start => '0',
-						:limit_nb => '100'
-			 		}.merge!(searchparameter)
-			search_response = apicall(this_method.to_sym, search)
-		# returns an array of contacts from search result
-			if search_response.nil? || search_response==""
-				 nil
-			else
-				format_result(search_response, :return, :contact)
-			end
-		
-		else
-			# returns false and a message
-			go_home(check[1])
+    	if has_needed_search_parameter(searchparameter)
+			format_result(searchApiCall(searchparameter), :return, :contact)
 		end
     end
     
-    def format_result(response, *_keys_)
-		output_key = [(calling_method.underscore+"_response").to_sym] | _keys_
-		response.to_hash.seek2 output_key 
-    end
-    
-    
 		# id = integer
 		# e.g. @connect.getContact(12345)
+		#
+		# returns the contact or nil
+		#
+		
     def getContact(id)
-    	contact = apicall(:getContact, { :id => id })
-		# returns the contact
-		contact.to_hash.seek :get_contact_response, :return, :contact
+    	format_result(getApiCall(id), :return, :contact)
     end
     
     
@@ -78,33 +62,24 @@ module Memotoo
     	# datetime = "2010-02-23 10:00:00" or just "2010-02-23"
     	# e.g. @connect.getContactSync("2010-02-23 10:00:00")
     def getContactSync(datetime)
-    	date2time=Time.mktime(*ParseDate.parsedate(datetime))
-    	formated_date=date2time.strftime("%Y-%m-%d %H:%M:%S")
-    	contacts = apicall(:getContactSync, { :date => formated_date })
-    	contacts.to_hash.seek :get_contact_sync_response, :return, :contact
+    	format_result(getSyncApiCall(datetime), :return, :contact)
     end
 
 
 		# id = integer
 		# e.g. @connect.deleteContact(12345)
+		# return true when contact is deleted
     def deleteContact(id)
-        contact = apicall(:deleteContact, { :id => id })
-		# deletes the contact - returns true when contact is deleted
-		contact.to_hash.seek :delete_contact_response, :ok
+		format_result(deleteApiCall(id), :ok)
     end
 
     	# required: lastname and id
     	#
     	# optional: all other \contact_details - see contact fields at bottom
+    	# return true if the changed happened
     def modifyContact(details={})
-    	check=has_fields(details, :lastname, :id) 
-    	if check[0]
-			contact = apicall(:modifyContact, { :contact => details })
-			# return true if the changed happened
-			contact.to_hash.seek :modify_contact_response, :ok
-		else
-		# returns false, if lastname and/or id is not given
-			go_home(check[1])		
+		if has_needed_fields(details, :lastname, :id)
+			format_result(modifyApiCall({:contact => details}), :ok)
 		end
     end
 
@@ -112,14 +87,8 @@ module Memotoo
     	#
     	# optional: all other contact_details
     def addContact(details={})
-    	check=has_fields(details, :lastname)
-		if check[0]
-			contact = apicall(:addContact, { :contact => details })
-			# return the id from the new contact -> get it in my own db? maybe
-			contact.to_hash.seek :add_contact_response, :id
-		else
-		# returns false, if lastname is not given
-			go_home(check[1])		
+		if has_needed_fields(details, :lastname)
+			format_result(addApiCall({:contact => details}), :id)
 		end
 	end
 	
@@ -204,6 +173,22 @@ module Memotoo
 			end
 		end
 		[valid, retarr]
+	end
+	
+	def has_needed_fields(thehash, *args)
+		valid=true
+		retarr=[]
+		args.each do |arg_item|
+			unless thehash.has_key?(arg_item)
+				valid = false
+				retarr << arg_item
+			end
+		end
+		valid ? true : go_home(retarr.join(", "))
+	end
+	
+	def has_needed_search_parameter(searchparameter)
+		has_needed_fields(searchparameter, :search)
 	end
 	
     
