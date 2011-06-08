@@ -60,7 +60,7 @@ playing with contactgroups
     
 ==Testing
 
-I added tests for all possible functions. (rcov 100%)
+I added tests for all implemented functions. (rcov 100%)
 You can add your own credential to /test/test_memotoo.rb
 
 I also added support for {http://test.rubygems.org}[http://test.rubygems.org]
@@ -75,8 +75,8 @@ see rdoc
 
 ==To-Dos
 
-1. Exception handling should be done
-2. I only implemented contacts - these soap-objects are missing: bookmark, bookmark's folder, contact's group, event, holiday, task, note
+1. Exception handling should be done - fetched problem are written to console
+2. I only implemented contacts and contact's group - these soap-objects are missing: bookmark, bookmark's folder, event, holiday, task, note
 
 It would be nice if *someone* could help me with the missing parts .
 
