@@ -44,6 +44,18 @@ modify a contact:
 get contact modified after a date
 
     @response = @connect.getContactSync("2011-01-01 10:00:00")
+    
+playing with contactgroups
+
+    @connect.addContactGroup({:name=>"Testgroup"})
+    
+    @connect.searchContactGroup({:search=>"ka", :limit_nb=>50})
+    
+    @connect.getContactGroup(12345)
+     
+    @connect.getContactGroupSync("2010-02-23 10:00:00")
+    
+    @connect.deleteContactGroup(12345)
 
     
 ==Testing
