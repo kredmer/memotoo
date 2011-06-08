@@ -1,4 +1,3 @@
-require 'parsedate'
 
 module Memotoo
   
