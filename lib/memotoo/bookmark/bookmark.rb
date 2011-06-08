@@ -14,10 +14,7 @@ module Memotoo
 	#   #e.g. @connect.addBookmark({:name=>"Testgroup"})
     def addBookmark(details)
 		if has_needed_fields(details, :url)
-			#addparams = { 	:id => '',
-			#			:updated => ''
-			#		 }.merge!(details)
-					format_result(addApiCall({:bookmark => details}), :id)
+			format_result(addApiCall({:bookmark => details}), :id)
 		end
 	end
 
@@ -58,7 +55,7 @@ module Memotoo
     	# note: you can only change the name
     	# return true if the changed happened
     def modifyBookmark(details={})
-		if has_needed_fields(details, :name, :id)
+		if has_needed_fields(details, :id)
 			format_result(modifyApiCall({:bookmark => details}), :ok)
 		end
     end

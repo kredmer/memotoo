@@ -21,7 +21,7 @@ else put it in your <b>environment.rb</b> and run
 
 ==Use
 
-give a first try in irb: ./script/console
+give a first try in ./script/console
 
 @connect=Memotoo::Connect.new("myusername","mypassword")
 
@@ -45,7 +45,7 @@ get contact modified after a date
 
     @response = @connect.getContactSync("2011-01-01 10:00:00")
     
-playing with contactgroups
+contactgroups:
 
     @connect.addContactGroup({:name=>"Testgroup"})
     
@@ -57,6 +57,19 @@ playing with contactgroups
     
     @connect.deleteContactGroup(12345)
 
+bookmarks:
+
+    @connect.addBookmark({:name=>"Testgroup"})
+    
+    @connect.searchBookmark({:search=>"ka", :limit_nb=>50})
+    
+    @connect.getBookmark(12345)
+    
+    @connect.getBookmarkSync("2010-02-23 10:00:00")
+    
+    @connect.modifyBookmark({:id=>response[:id], :url=>"www.google.com", :description => "nice"})
+    
+    @connect.deleteBookmark(12345)
     
 ==Testing
 
@@ -67,7 +80,9 @@ I also added support for {http://test.rubygems.org}[http://test.rubygems.org]
 
 You can now use the gem rubygems-test for easy testing this gem.
 
-See my testresult here: http://test.rubygems.org/gems/memotoo/v/1.0.5/test_results/1650
+    gem test memotoo
+
+See my testresult here: http://test.rubygems.org/gems/memotoo/v/1.0.6/test_results/1655
 
 ==Documentation
 
@@ -75,8 +90,8 @@ see rdoc
 
 ==To-Dos
 
-1. Exception handling should be done - fetched problem are written to console
-2. I only implemented contacts and contact's group - these soap-objects are missing: bookmark, bookmark's folder, event, holiday, task, note
+1. Exception handling should be done - fetched problems are written to console
+2. I only implemented contacts, contact's group and bookmark - these soap-objects are missing: bookmark's folder, event, holiday, task, note
 
 It would be nice if *someone* could help me with the missing parts .
 
