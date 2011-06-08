@@ -5,10 +5,10 @@
 
 Gem::Specification.new do |s|
   s.name = %q{memotoo}
-  s.version = "1.0.5"
+  s.version = "1.0.6"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = [%q{Karsten Redmer}]
+  s.authors = ["Karsten Redmer"]
   s.date = %q{2011-06-08}
   s.description = %q{Unofficial gem for connecting to memotoo.com with their soap-api and handle your contact needs. Memotoo lets your synchronize all your contacts, events and tasks with yahoo, gmail, facebook, xing, outlook, your mobile-phone and more. You can also get your e-mails in one place.}
   s.email = %q{k.redmer@yahoo.de}
@@ -27,6 +27,7 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "lib/memotoo.rb",
+    "lib/memotoo/bookmark/bookmark.rb",
     "lib/memotoo/connect.rb",
     "lib/memotoo/contact/contact.rb",
     "lib/memotoo/contact/contact_group.rb",
@@ -36,15 +37,21 @@ Gem::Specification.new do |s|
     "lib/memotoo/wsdl/https.xml",
     "memotoo.gemspec",
     "test/helper.rb",
+    "test/test_bookmark.rb",
+    "test/test_contact.rb",
+    "test/test_contact_group.rb",
     "test/test_memotoo.rb"
   ]
   s.homepage = %q{http://github.com/kredmer/memotoo}
-  s.licenses = [%q{MIT}]
-  s.require_paths = [%q{lib}]
-  s.rubygems_version = %q{1.8.5}
+  s.licenses = ["MIT"]
+  s.require_paths = ["lib"]
+  s.rubygems_version = %q{1.6.2}
   s.summary = %q{Unofficial gem for connecting to memotoo.com with their given soap-api}
   s.test_files = [
     "test/helper.rb",
+    "test/test_bookmark.rb",
+    "test/test_contact.rb",
+    "test/test_contact_group.rb",
     "test/test_memotoo.rb"
   ]
 
