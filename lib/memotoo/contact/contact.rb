@@ -69,8 +69,8 @@ module Memotoo
     
     def format_result(response, *_keys_)
     
-     response.to_hash.seek calling_method.underscore+"_response", _keys_
-    [calling_method.underscore, calling_method]
+     response.to_hash.seek (calling_method.underscore+"_response").to_sym, _keys_
+    #[calling_method.underscore, calling_method]
     
     
     end
