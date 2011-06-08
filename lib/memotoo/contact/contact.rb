@@ -71,7 +71,7 @@ module Memotoo
     
     output_key = ([(calling_method.underscore+"_response").to_sym] | _keys_)
     
-     response.to_hash.seek output_key 
+     response.to_hash.seek2 output_key 
     #[calling_method.underscore, calling_method]
     #[output_key, response]
     
