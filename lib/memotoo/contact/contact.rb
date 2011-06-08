@@ -29,6 +29,16 @@ module Memotoo
     #++ @response.each {|contact|puts contact[:id]+"-"+contact[:firstname]+" "+contact[:lastname]}
 
 
+    	# required: lastname 
+    	#
+    	# optional: all other contact_details - see below
+    def addContact(details={})
+		if has_needed_fields(details, :lastname)
+			format_result(addApiCall({:contact => details}), :id)
+		end
+	end
+
+
 		#[searchparameter:]
 		#   {:search=>"something", :limit_start=>0, :limit_nb=>100}
     	#*   required:
@@ -40,7 +50,6 @@ module Memotoo
     	#
     	# returns nil or a hash of one contact or an array of contacts
     	#
-
     def searchContact(searchparameter={})
     	if has_needed_search_parameter(searchparameter)
 			format_result(searchApiCall(searchparameter), :return, :contact)
@@ -52,25 +61,15 @@ module Memotoo
 		#
 		# returns the contact or nil
 		#
-		
     def getContact(id)
     	format_result(getApiCall(id), :return, :contact)
     end
-    
     
     	# get modified contacts since date
     	# datetime = "2010-02-23 10:00:00" or just "2010-02-23"
     	# e.g. @connect.getContactSync("2010-02-23 10:00:00")
     def getContactSync(datetime)
     	format_result(getSyncApiCall(datetime), :return, :contact)
-    end
-
-
-		# id = integer
-		# e.g. @connect.deleteContact(12345)
-		# return true when contact is deleted
-    def deleteContact(id)
-		format_result(deleteApiCall(id), :ok)
     end
 
     	# required: lastname and id
@@ -83,14 +82,13 @@ module Memotoo
 		end
     end
 
-    	# required: lastname 
-    	#
-    	# optional: all other contact_details
-    def addContact(details={})
-		if has_needed_fields(details, :lastname)
-			format_result(addApiCall({:contact => details}), :id)
-		end
-	end
+		# id = integer
+		# e.g. @connect.deleteContact(12345)
+		# return true when contact is deleted
+    def deleteContact(id)
+		format_result(deleteApiCall(id), :ok)
+    end
+
 	
 	# ----------------------------------------
 #:section: contact_details
@@ -154,42 +152,6 @@ module Memotoo
 #			:group => '0',
 #			:photo => '', // Photo encoded with Base64
 # ----------------------------------------
-	
-	
-	private
-	
-	def go_home(message)
-		puts "missing fields: " + message.to_s
-		false
-	end
-	
-	def has_fields(thehash, *args)
-		valid=true
-		retarr=[]
-		args.each do |arg_item|
-			unless thehash.has_key?(arg_item)
-				valid = false
-				retarr << arg_item
-			end
-		end
-		[valid, retarr]
-	end
-	
-	def has_needed_fields(thehash, *args)
-		valid=true
-		retarr=[]
-		args.each do |arg_item|
-			unless thehash.has_key?(arg_item)
-				valid = false
-				retarr << arg_item
-			end
-		end
-		valid ? true : go_home(retarr.join(", "))
-	end
-	
-	def has_needed_search_parameter(searchparameter)
-		has_needed_fields(searchparameter, :search)
-	end
 	
     
   end # class

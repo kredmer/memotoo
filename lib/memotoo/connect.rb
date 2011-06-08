@@ -16,7 +16,7 @@ module Memotoo
     # will hold username and password in a hash style (used for all requests)
     attr_accessor :opts
     
-    SEARCHDEFAULTS = { 	:limit_start => '0', :limit_nb => '100' }
+    SEARCHDEFAULTS = { :limit_start => '0', :limit_nb => '100' }
      
      #[https] default:true for the SOAP service.
      # example: @connect=Memotoo::Connect.new("myusername","mypassword")
@@ -107,10 +107,36 @@ module Memotoo
     
 	def format_result(response, *_keys_)
 		output_key = [(calling_method.underscore+"_response").to_sym] | _keys_
-		response.nil? ? nil : response.to_hash.seek2(output_key) 
+		response.nil? ? nil : response.to_hash.seek(output_key) 
     end
     
-    
+    	
+	
+	private
+	
+	def go_home(message)
+	#-- 
+	# TODO: raising errors instead of writing to STDOUT
+	#++
+		puts "missing fields: " + message.to_s
+		false
+	end
+	
+	def has_needed_fields(thehash, *args)
+		valid=true
+		retarr=[]
+		args.each do |arg_item|
+			unless thehash.has_key?(arg_item)
+				valid = false
+				retarr << arg_item
+			end
+		end
+		valid ? true : go_home(retarr.join(", "))
+	end
+	
+	def has_needed_search_parameter(searchparameter)
+		has_needed_fields(searchparameter, :search)
+	end
     
   end # class
 
@@ -120,11 +146,9 @@ end # module
 
 module Savon
   module Global
-
     def log?
       false
     end
-    
       def raise_errors?
       @raise_errors = true
     end
@@ -132,7 +156,7 @@ module Savon
   end
 end
 
-# available memotoo soap actions !!!!!!!!!!
+#-- available memotoo soap actions !!!!!!!!!!
 
 #event
 
@@ -170,7 +194,7 @@ end
 #:get_contact_sync,
 #:get_contact,
 
-#contact-group
+#contact-group - ready implemented
 #     
 #:search_contact_group,
 #:add_contact_group,    
@@ -214,4 +238,4 @@ end
 #:delete_note,
 #:add_note, 
 #:get_note,
-
+#++
