@@ -39,27 +39,19 @@ module Memotoo
     	#e.g. @connect.searchContact({:search=>"ka", :limit_nb=>50})
 
     def searchContact(searchparameter={})
-        soapname=this_method
+    
     	check=has_fields(searchparameter, :search)
     	if check[0]
 			search = { 	:limit_start => '0',
 						:limit_nb => '100'
 			 		}.merge!(searchparameter)
-			search_response = apicall(soapname.to_sym, search)
+			search_response = apicall(this_method.to_sym, search)
 		# returns an array of contacts from search result
-		if search_response.nil? || search_response==""
-			 nil
-		else
-		
-		#response_name=(soapname.underscore+"_response").to_sym
-		#response_vars=
-		
-		format_result(search_response, :return, :contact)
-		
-		#search_response.to_hash.seek (soapname.underscore+"_response").to_sym, :return, :contact
-			#[this_method, this_method.class]
-			#[response_name,search_response]
-		end
+			if search_response.nil? || search_response==""
+				 nil
+			else
+				format_result(search_response, :return, :contact)
+			end
 		
 		else
 			# returns false and a message
@@ -68,13 +60,8 @@ module Memotoo
     end
     
     def format_result(response, *_keys_)
-    
-    output_key = ([(calling_method.underscore+"_response").to_sym] | _keys_)
-    
-     response.to_hash.seek2 output_key 
-    #[calling_method.underscore, calling_method]
-    #[output_key, response]
-    
+		output_key = [(calling_method.underscore+"_response").to_sym] | _keys_
+		response.to_hash.seek2 output_key 
     end
     
     
