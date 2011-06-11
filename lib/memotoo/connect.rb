@@ -23,11 +23,12 @@ module Memotoo
     
     # requirement for the objects
 	NEEDS = { 	 :contact => [:lastname],
-				 :contact_group => :name,
-				 :bookmark => :url,
-				 :bookmark_folder => :name,
-				 :note => :description,
-				 :calendar_category => :name}
+				 :contact_group => [:name],
+				 :bookmark => [:url],
+				 :bookmark_folder => [:name],
+				 :note => [:description],
+				 :calendar_category => [:name],
+				 :event => [:title, :dateBegin, :dateEnd]}
      
      #[https] default:true for the SOAP service.
      # example: @connect=Memotoo::Connect.new("myusername","mypassword")
@@ -87,7 +88,7 @@ module Memotoo
 	def make_methods
 	
 	# the accessible soap objects
-	soapobj = %w{Contact ContactGroup Bookmark BookmarkFolder Note CalendarCategory}
+	soapobj = %w{Contact ContactGroup Bookmark BookmarkFolder Note CalendarCategory Event}
 	# soapobj = %w{Contact ContactGroup Bookmark BookmarkFolder}
 	
 		soapobj.each do |myobj|
@@ -111,7 +112,7 @@ module Memotoo
 
 		# modify
 		methodname="modify"+myobj	
-		selfclass.send(:define_method, methodname) { |details| output(detailsApicall({symbol => details}), :ok) if fields?(details, NEEDS[symbol], :id) }
+		selfclass.send(:define_method, methodname) { |details| output(detailsApicall({symbol => details}), :ok) if fields?(details, [NEEDS[symbol], :id].flatten!) }
 		
 		# delete
 		methodname="delete"+myobj	
@@ -211,8 +212,8 @@ module Memotoo
 		#args= args[:fields] if !args[0].hash? 
 		retarr=[]
 		args.each do |arg_item|
-		puts "argitem :"+arg_item.to_s
-		puts "hash :"+thehash.to_s
+		#puts "argitem :"+arg_item.to_s
+		#puts "hash :"+thehash.to_s
 			unless thehash.has_key?(arg_item)
 				valid = false
 				retarr << arg_item

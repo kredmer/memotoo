@@ -3,37 +3,37 @@ require 'helper'
 
 class TestMemotoo < Test::Unit::TestCase
   
-  context "Memotoo-Soap Api basic tests" do
-  
-		setup do
-			@connect=Memotoo::Connect.new(MEMOTOO_USERNAME,MEMOTOO_PASSWORD)
-		end
-		  
-		should "have a connect-instance" do
-			assert_equal Memotoo::Connect, @connect.class
-		end
-		  
-		should "write a message if username/password is not correct" do
-		    @connect=Memotoo::Connect.new(MEMOTOO_USERNAME,"wrongpasswd")
-			response = @connect.searchContact(TESTSEARCHDEFAULTS)
-			assert_raise RuntimeError do
-			  raise 'Boom!!!'			
-			end
-		end
+#  context "Memotoo-Soap Api basic tests" do
+#  
+#		setup do
+#			@connect=Memotoo::Connect.new(MEMOTOO_USERNAME,MEMOTOO_PASSWORD)
+#		end
+#		  
+#		should "have a connect-instance" do
+#			assert_equal Memotoo::Connect, @connect.class
+#		end
+#		  
+#		should "write a message if username/password is not correct" do
+#		    @connect=Memotoo::Connect.new(MEMOTOO_USERNAME,"wrongpasswd")
+#			response = @connect.searchContact(TESTSEARCHDEFAULTS)
+#			assert_raise RuntimeError do
+#			  raise 'Boom!!!'			
+#			end
+#		end
 
-		should "have valid username and password and get search results" do
-			response = @connect.searchContact(TESTSEARCHDEFAULTS)
-			assert_not_nil response
-		end
-		
-		
-		should "also use http request instead of https" do
-			@connect=Memotoo::Connect.new(MEMOTOO_USERNAME,MEMOTOO_PASSWORD, false)
-			response = @connect.searchContact(TESTSEARCHDEFAULTS)
-			assert_not_nil response
-		end
-		
-  end
+#		should "have valid username and password and get search results" do
+#			response = @connect.searchContact(TESTSEARCHDEFAULTS)
+#			assert_not_nil response
+#		end
+#		
+#		
+#		should "also use http request instead of https" do
+#			@connect=Memotoo::Connect.new(MEMOTOO_USERNAME,MEMOTOO_PASSWORD, false)
+#			response = @connect.searchContact(TESTSEARCHDEFAULTS)
+#			assert_not_nil response
+#		end
+#		
+#  end
 		
 end
 
