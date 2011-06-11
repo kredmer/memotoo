@@ -20,6 +20,14 @@ module Memotoo
     attr_accessor :opts
     
     SEARCHDEFAULTS = { :limit_start => '0', :limit_nb => '100' }
+    
+    # requirement for the objects
+	NEEDS = { 	 :contact => [:lastname],
+				 :contact_group => :name,
+				 :bookmark => :url,
+				 :bookmark_folder => :name,
+				 :note => :description,
+				 :calendar_category => :name}
      
      #[https] default:true for the SOAP service.
      # example: @connect=Memotoo::Connect.new("myusername","mypassword")
@@ -32,6 +40,9 @@ module Memotoo
 				:password => password,
 					}
 			}
+			
+		# build dynamically all methods - some magic :-)
+		make_methods
 		
 		# creates client with memotoo settings 
 		client(https)
@@ -57,14 +68,64 @@ module Memotoo
 		end
     end
     
+
+	def selfclass
+	(class << self; self; end)
+	end
+
+	# builds for every soap-object six methods
+
+	def make_event_methods
+	
+	testarr = %w{test1 test2}
+	newarr=testarr.map{|x|x.to_sym}
+	puts newarr * ","
+	
+	end
+
+
+	def make_methods
+	
+	# the accessible soap objects
+	soapobj = %w{Contact ContactGroup Bookmark BookmarkFolder Note CalendarCategory}
+	# soapobj = %w{Contact ContactGroup Bookmark BookmarkFolder}
+	
+		soapobj.each do |myobj|
+		symbol=myobj.underscore.to_sym
+	
+		# add method
+		methodname="add"+myobj	
+		selfclass.send(:define_method, methodname) { |details| output(detailsApicall({symbol => details}), :id) if fields?(details, NEEDS[symbol]) }
+		
+		# search
+		methodname="search"+myobj	
+		selfclass.send(:define_method, methodname) { |params| output(searchApiCall(params), :return, symbol) if fields?(params, [:search]) }
+		
+		# get
+		methodname="get"+myobj	
+		selfclass.send(:define_method, methodname) { |id| output(idApicall(id), :return, symbol) }
+
+		# get...Sync
+		methodname="get"+myobj+"Sync"	
+		selfclass.send(:define_method, methodname) { |datetime| output(getSyncApiCall(datetime), :return, symbol) }
+
+		# modify
+		methodname="modify"+myobj	
+		selfclass.send(:define_method, methodname) { |details| output(detailsApicall({symbol => details}), :ok) if fields?(details, NEEDS[symbol], :id) }
+		
+		# delete
+		methodname="delete"+myobj	
+		selfclass.send(:define_method, methodname) { |id| output(idApicall(id), :ok) }
+
+		end
+	end
+	
+
+
     
     def searchApiCall(searchparameter)
 		search = SEARCHDEFAULTS.merge!(searchparameter)
 		apicall(calling_method.to_sym, search)
-    end
-    
-    def getApiCall(id)
-    	apicall(calling_method.to_sym, { :id => id })
     end
     
     def getSyncApiCall(datetime)
@@ -73,16 +134,12 @@ module Memotoo
     	apicall(calling_method.to_sym, { :date => formated_date })
     end
     
-    def deleteApiCall(id)
-	    apicall(calling_method.to_sym, { :id => id })
+    def idApicall(id)
+        apicall(calling_method.to_sym, { :id => id })
     end
     
-    def modifyApiCall(details)
-		apicall(calling_method.to_sym, details )    
-    end
-    
-    def addApiCall(details)
-		apicall(calling_method.to_sym, details )    
+    def detailsApicall(details)
+		apicall(calling_method.to_sym, details )
     end
     
     
@@ -107,13 +164,11 @@ module Memotoo
 		#				puts error.to_s
 		end
     end
-    
-	def format_result(response, *_keys_)
+
+	def output(response, *_keys_)
 		output_key = [(calling_method.underscore+"_response").to_sym] | _keys_
 		response.nil? ? nil : response.to_hash.seek(output_key) 
     end
-    
-    	
 	
 	private
 	
@@ -125,10 +180,39 @@ module Memotoo
 		false
 	end
 	
-	def has_needed_fields(thehash, *args)
+#	def has_needed_fields(thehash, *args)
+#		valid=true
+#		retarr=[]
+#		args.each do |arg_item|
+#			unless thehash.has_key?(arg_item)
+#				valid = false
+#				retarr << arg_item
+#			end
+#		end
+#		valid ? true : go_home(retarr.join(", "))
+#	end
+	
+#	def fields?(thehash, *args)
+#		valid=true
+#		retarr=[]
+#		args.each do |arg_item|
+#			unless thehash.has_key?(arg_item)
+#				valid = false
+#				retarr << arg_item
+#			end
+#		end
+#		valid ? true : go_home(retarr.join(", "))
+#	end
+	
+	def fields?(thehash, args=[])
+		#puts "args: "+args.to_s
+		#puts "argsclass: "+args.class.to_s
 		valid=true
+		#args= args[:fields] if !args[0].hash? 
 		retarr=[]
 		args.each do |arg_item|
+		puts "argitem :"+arg_item.to_s
+		puts "hash :"+thehash.to_s
 			unless thehash.has_key?(arg_item)
 				valid = false
 				retarr << arg_item
@@ -137,13 +221,14 @@ module Memotoo
 		valid ? true : go_home(retarr.join(", "))
 	end
 	
-	def has_needed_search_parameter(searchparameter)
-		has_needed_fields(searchparameter, :search)
-	end
+#	def has_needed_search_parameter(searchparameter)
+#		has_needed_fields(searchparameter, :search)
+#	end
     
   end # class
 
 end # module
+
 
 # stop savon logging 
 
@@ -170,7 +255,7 @@ end
 #:search_event,
 #:add_event,
 
-#calendar_category
+#calendar_category  - ready implemented
 
 #:search_calendar_category,
 #:add_calendar_category,
@@ -206,7 +291,7 @@ end
 #:get_contact_group_sync
 #:modify_contact_group
 #     
-#bookmark
+#bookmark - ready implemented
 #     
 #:get_bookmark,
 #:modify_bookmark,
@@ -215,7 +300,7 @@ end
 #:delete_bookmark,
 #:get_bookmark_sync,  
 # 
-#bookmarkfolder
+#bookmarkfolder - ready implemented - API problem with search
 # 
 #:search_bookmark_folder,
 #:add_bookmark_folder,     
@@ -233,7 +318,7 @@ end
 #:add_task,    
 #:delete_task, 
 
-#note
+#note  - ready implemented
 
 #:get_note_sync
 #:modify_note,

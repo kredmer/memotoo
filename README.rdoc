@@ -2,14 +2,14 @@
 
 <b>This is not an official gem from the provider of memotoo !!!</b>
 
-The memotoo-gem is a soap(savon)-wrapper to (easy) access your {memotoo}[http://www.memotoo.com/index-saleshype.php] contacts.
+The memotoo-gem is a soap(savon)-wrapper to (easy) access your {memotoo}[https://www.memotoo.com/index-saleshype.php] contacts.
 
-Add, get, search, modify and delete your memotoo contacts.
+Add, get, search, modify and delete your memotoo contacts, contact-groups and bookmarks.
 
 == You need
 you need a memotoo-credential (username/passwd) to use this gem 
 
-<b>get a free account here: {www.memotoo.com}[http://www.memotoo.com/index-saleshype.php]</b>
+<b>get a free account here: {www.memotoo.com}[https://www.memotoo.com/index-saleshype.php]</b>
 
 
 ==Install
@@ -74,7 +74,7 @@ bookmarks:
 ==Testing
 
 I added tests for all implemented functions. (rcov 100%)
-You can add your own credential to /test/test_memotoo.rb
+You can add your own credential to /test/helper.rb
 
 I also added support for {http://test.rubygems.org}[http://test.rubygems.org]
 

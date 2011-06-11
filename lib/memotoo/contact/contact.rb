@@ -31,11 +31,9 @@ module Memotoo
     	# required: lastname 
     	#
     	# optional: all other contact_details - see below
-    def addContact(details={})
-		if has_needed_fields(details, :lastname)
-			format_result(addApiCall({:contact => details}), :id)
-		end
-	end
+#    def addContact(details={})	
+#		output(detailsApicall({:contact => details}), :id) if fields?(details, :lastname)
+#	end
 
 
 		#[searchparameter:]
@@ -49,44 +47,40 @@ module Memotoo
     	#
     	# returns nil or a hash of one contact or an array of contacts
     	#
-    def searchContact(searchparameter={})
-    	if has_needed_search_parameter(searchparameter)
-			format_result(searchApiCall(searchparameter), :return, :contact)
-		end
-    end
+#    def searchContact(params={})
+#		output(searchApiCall(params), :return, :contact) if fields?(params, :search)
+#    end
     
 		# id = integer
 		# e.g. @connect.getContact(12345)
 		#
 		# returns the contact or nil
 		#
-    def getContact(id)
-    	format_result(getApiCall(id), :return, :contact)
-    end
+#    def getContact(id)
+#		output(idApicall(id), :return, :contact)
+#    end
     
     	# get modified contacts since date
     	# datetime = "2010-02-23 10:00:00" or just "2010-02-23"
     	# e.g. @connect.getContactSync("2010-02-23 10:00:00")
-    def getContactSync(datetime)
-    	format_result(getSyncApiCall(datetime), :return, :contact)
-    end
+#    def getContactSync(datetime)
+#		output(getSyncApiCall(datetime), :return, :contact)
+#    end
 
     	# required: lastname and id
     	#
     	# optional: all other \contact_details - see contact fields at bottom
     	# return true if the changed happened
-    def modifyContact(details={})
-		if has_needed_fields(details, :lastname, :id)
-			format_result(modifyApiCall({:contact => details}), :ok)
-		end
-    end
+#    def modifyContact(details={})
+#		output(detailsApicall({:contact => details}), :ok) if fields?(details, :lastname, :id)
+#    end
 
 		# id = integer
 		# e.g. @connect.deleteContact(12345)
 		# return true when contact is deleted
-    def deleteContact(id)
-		format_result(deleteApiCall(id), :ok)
-    end
+#    def deleteContact(id)
+#		output(idApicall(id), :ok)
+#    end
 
 	
 	# ----------------------------------------
