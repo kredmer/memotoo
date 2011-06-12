@@ -120,7 +120,7 @@ You can now use the gem rubygems-test for easy testing this gem.
 
     gem test memotoo
 
-See my testresult here: http://test.rubygems.org/gems/memotoo/v/1.0.6/test_results/1655
+See my testresult here: http://test.rubygems.org/gems/memotoo/v/2.0.0/test_results/1663
 
 (To make a fast functional test only contact will be tested - goto test_soapobjects.rb line 8 and uncomment for all soapobject-tests)
 
