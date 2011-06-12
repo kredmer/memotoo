@@ -2,32 +2,35 @@ require 'helper'
 
 class TestMemotoo < Test::Unit::TestCase
 
-# api-problem in: BookmarkFolder
+# api-problem in: BookmarkFolder, Holiday -> reportet to Thomas Pequet on 12.July 2011
 
-#soapobjects = %w{Contact ContactGroup Bookmark Note CalendarCategory Event}
-soapobjects = %w{Holiday}
+# uncomment this to test all soapobjects
+#soapobjects = %w{Contact}
+ soapobjects = %w{Contact ContactGroup Bookmark Note CalendarCategory Event Task}
 
 
 
-fixure = {  :contact => {:new => {:lastname => "Testcontact123456"},
-						:mod => {:lastname => "Testcontact123456xyz"}},
-			:contact_group => {:new=>{:name => "TestcontactGroup123456"},
-						:mod => {:name => "TestcontactGroup123456xyz"}},
-			:bookmark => {:new=>{:url => "Testbookmark.com"},
-						:mod => {:url => "Testbookmark123.com"}},
+
+fixure = {  :contact => {	:new => {:lastname => "Testcontact123456"},
+							:mod => {:lastname => "Testcontact123456xyz"}},
+			:contact_group => {	:new=>{:name => "TestcontactGroup123456"},
+								:mod => {:name => "TestcontactGroup123456xyz"}},
+			:bookmark => {	:new=>{:url => "Testbookmark.com"},
+							:mod => {:url => "Testbookmark123.com"}},
 			:bookmark_folder => {:new=>{:name => "Testbookmarkfolder123456"},
 						:mod => {:name => "Testbookmarkfolder123456xyz"}},
-			:note => {:new => {:description => "TestNote12345"},
+			:note => {	:new => {:description => "TestNote12345"},
 						:mod => {:description => "TestNote12345xyz"}},
 			:calendar_category => {:new=>{:name => "TestCalendarCategory123456"},
 						:mod => {:name => "TestCalendarCategory123456xyz"}},
-			:event => {:new => {:title=> "Testevent1234", :dateBegin=>"2011-06-12T10:00:00", :dateEnd=>"2011-06-12T15:00:00"},
+			:event => {	:new => {:title=> "Testevent1234", :dateBegin=>"2011-06-12T10:00:00", :dateEnd=>"2011-06-12T15:00:00"},
 						:mod => {:title=> "Testevent1234xyz", :dateBegin=>"2011-06-12T10:00:00", :dateEnd=>"2011-06-12T15:00:00"}},
 			:holiday => {:new => {:description=> "Testholiday1234", :dateBegin=>"2011-07-12", :dateEnd=>"2011-07-20"},
-						:mod => {:description=> "Testholiday1234xyz", :dateBegin=>"2011-07-12", :dateEnd=>"2011-07-20"}}
-						 }
+						:mod => {:description=> "Testholiday1234xyz", :dateBegin=>"2011-07-12", :dateEnd=>"2011-07-20"}},
+			:task => {	:new => {:title=> "Testtask1234"},
+						:mod => {:title=> "Testtask1234xyz"}} }
 
-needs = Memotoo::Connect::NEEDS
+needs = Memotoo::NEEDS
 
 soapobjects.each do |soapobject|
 		symbol=soapobject.underscore.to_sym
@@ -43,7 +46,7 @@ soapobjects.each do |soapobject|
    	context "what we could do with #{soapobject}'s" do
    	
    		setup do
-			@connect=Memotoo::Connect.new(MEMOTOO_USERNAME,MEMOTOO_PASSWORD, false)
+			@connect=Memotoo.new(MEMOTOO_USERNAME,MEMOTOO_PASSWORD, false)
 		end
 
 		context "Adding and finding #{soapobject}" do
@@ -54,8 +57,9 @@ soapobjects.each do |soapobject|
 			end
 			
 			should "add a new #{soapobject} (and look for needed params)" do
-				response = @connect.send(addmethod,{})
-				assert_nil response
+				assert_raises ArgumentError do
+					response = @connect.send(addmethod,{})
+				end
 			end
 		
 			should "find the #{soapobject}" do
@@ -69,8 +73,9 @@ soapobjects.each do |soapobject|
 			end
 			
 			should "look for a search parameter in search for #{soapobject}" do
-				response = @connect.send(searchmethod,{})
-				assert !response
+				assert_raises ArgumentError do
+					response = @connect.send(searchmethod,{})
+				end
 			end
 			
 	  		should "get the test#{soapobject}" do
@@ -97,8 +102,9 @@ soapobjects.each do |soapobject|
 
 			should "modify the test#{soapobject} (and look for needed params)" do
 				response = @connect.send(searchmethod,{:search => fixure[symbol][:mod][needs[symbol][0]]})
-	 		      contact = @connect.send(modifymethod, {})
-				  assert !contact
+				assert_raises ArgumentError do
+					contact = @connect.send(modifymethod, {})
+				end
 			end
 		end
 		

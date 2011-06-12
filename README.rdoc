@@ -14,7 +14,9 @@ you need a memotoo-credential (username/passwd) to use this gem
 
 ==Install
 
-if you use <b>bundler</b> add gem 'memotoo' to your Gemfile run
+if you use <b>bundler</b> add 
+    gem 'memotoo'
+to your Gemfile run
     bundle install
 else put it in your <b>environment.rb</b> and run
     rake gems:install
@@ -23,6 +25,9 @@ else put it in your <b>environment.rb</b> and run
 
 give a first try in ./script/console
 
+@connect=Memotoo.new("myusername","mypassword")
+
+Changelog: (prev V 2.0 I wrapped it in a Module )
 @connect=Memotoo::Connect.new("myusername","mypassword")
 
 add a contact:
@@ -70,7 +75,40 @@ bookmarks:
     @connect.modifyBookmark({:id=>response[:id], :url=>"www.google.com", :description => "nice"})
     
     @connect.deleteBookmark(12345)
-    
+
+
+Requirements:
+
+ for the objects:
+
+Contact:: :lastname
+ContactGroup:: :name
+Bookmark:: :url
+BookmarkFolder:: :name 
+Note:: :description
+CalendarCategory:: :name
+Event:: :title, :dateBegin, :dateEnd
+Holiday:: :description, :dateBegin, :dateEnd
+Task:: :title
+
+ for the methods:
+
+searchmethod:: {search=>" "}, a hash
+id:: id of record, integer
+get...Sync:: datetime, format YYYY-MM-DD HH:MM:SS - "2010-02-23 10:00:00"
+modify:: id of record, integer
+add and modify:: need always the object requirements 
+
+ hint:
+ 
+Holiday::
+dateBegin::    "2011-01-01", Format: YYYY-MM-DD
+dateEnd::    "2011-01-01", Format: YYYY-MM-DD
+
+Task and Event::
+dateBegin::    "2011-06-18T10:00:00", Format: YYYY-MM-DDTHH:II:SS - ISO8601 time format GMT
+dateEnd::    "2011-06-18T10:00:00", Format: YYYY-MM-DDTHH:II:SS - ISO8601 time format GMT
+ 
 ==Testing
 
 I added tests for all implemented functions. (rcov 100%)
@@ -84,17 +122,33 @@ You can now use the gem rubygems-test for easy testing this gem.
 
 See my testresult here: http://test.rubygems.org/gems/memotoo/v/1.0.6/test_results/1655
 
+(To make a fast functional test only contact will be tested - goto test_soapobjects.rb line 8 and uncomment for all soapobject-tests)
+
 ==Documentation
 
 see rdoc
 
-==To-Dos
+and memotoo api-documentation
 
-1. Exception handling should be done - fetched problems are written to console
-2. I only implemented contacts, contact's group and bookmark - these soap-objects are missing: bookmark's folder, event, holiday, task, note
+https://www.memotoo.com/index.php?rub=api#SOAP-server.php
 
-It would be nice if *someone* could help me with the missing parts .
+== Changelog V. 2.0.0
 
+I create all methods now dynamically. This reduced the code dramatically.
+I give up using a module to wrap the namespace. Now it's a class.
+
+== Hint
+
+Be careful with following methods due to a problem at memotoo's api:
+
+searchBookmarkFolder:: (possible workaround: search for all -> " " and then go ahead)
+
+getHoliday:: (possible workaround: search and use the result)
+getHolidaySync (no workaround known)
+
+All three methods seems not to be really important - just fyi
+
+I will remove this hint when the soap-api is repaired. 
 
 == Contributing to memotoo-gem
  

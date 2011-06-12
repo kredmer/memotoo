@@ -26,8 +26,8 @@ class Hash # :nodoc: all
   
       # Returns a new Hash with +self+ and +other_hash+ merged recursively.
       # Modifies the receiver in place.
-      # => already in savon gem 
-      # =>  in case a time come and it will be away - just uncomment it
+      # => see this function also in savon gem 
+      # got problems in my test and had to include it here...
       def deep_merge_me!(other_hash)
         other_hash.each_pair do |k,v|
           tv = self[k]

@@ -1,4 +1,4 @@
-module Kernel
+module Kernel # :nodoc: all
 private
 #  def this_method
 #    caller[0] =~ /`([^']*)'/ and $1
