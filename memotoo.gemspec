@@ -5,12 +5,21 @@
 
 Gem::Specification.new do |s|
   s.name = %q{memotoo}
-  s.version = "1.0.6"
+  s.version = "2.0.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Karsten Redmer"]
-  s.date = %q{2011-06-08}
-  s.description = %q{Unofficial gem for connecting to memotoo.com with their soap-api and handle your contact needs. Memotoo lets your synchronize all your contacts, events and tasks with yahoo, gmail, facebook, xing, outlook, your mobile-phone and more. You can also get your e-mails in one place.}
+  s.date = %q{2011-06-12}
+  s.description = %q{Unofficial gem for connecting to memotoo.com with their soap-api and handle your contact needs. Memotoo lets your synchronize all your contacts, events and tasks with yahoo, gmail, facebook, xing, outlook, your mobile-phone and more. You can also get your e-mails in one place.Features of memotoo:
+  New mobile? Transfer all your data to your new device!
+  Synchronise your data with your mobile phone (with SyncML)
+  Access all your e-mail in a single page from Google, Yahoo, Hotmail / MSN, ...!
+  View your data on your mobile phone (WAP / XHTML)
+  Access your contacts using a LDAP directory
+  Access your files via a Web Folder
+  Access your files via FTP
+  Add Memotoo widgets to iGoogle, Netvibes, Windows Vista, Apple Dashboard, ...
+  Memotoo plugins for your browser}
   s.email = %q{k.redmer@yahoo.de}
   s.extra_rdoc_files = [
     "LICENSE.txt",
@@ -19,7 +28,6 @@ Gem::Specification.new do |s|
   s.files = [
     ".document",
     ".gemtest",
-    ".rvmrc-old",
     "Gemfile",
     "Gemfile.lock",
     "LICENSE.txt",
@@ -27,20 +35,13 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "lib/memotoo.rb",
-    "lib/memotoo/bookmark/bookmark.rb",
-    "lib/memotoo/connect.rb",
-    "lib/memotoo/contact/contact.rb",
-    "lib/memotoo/contact/contact_group.rb",
     "lib/memotoo/core-ext/hash.rb",
     "lib/memotoo/core-ext/kernel.rb",
-    "lib/memotoo/wsdl/http.xml",
-    "lib/memotoo/wsdl/https.xml",
+    "lib/memotoo/main.rb",
     "memotoo.gemspec",
     "test/helper.rb",
-    "test/test_bookmark.rb",
-    "test/test_contact.rb",
-    "test/test_contact_group.rb",
-    "test/test_memotoo.rb"
+    "test/test_memotoo.rb",
+    "test/test_soapobjects.rb"
   ]
   s.homepage = %q{http://github.com/kredmer/memotoo}
   s.licenses = ["MIT"]
@@ -49,10 +50,8 @@ Gem::Specification.new do |s|
   s.summary = %q{Unofficial gem for connecting to memotoo.com with their given soap-api}
   s.test_files = [
     "test/helper.rb",
-    "test/test_bookmark.rb",
-    "test/test_contact.rb",
-    "test/test_contact_group.rb",
-    "test/test_memotoo.rb"
+    "test/test_memotoo.rb",
+    "test/test_soapobjects.rb"
   ]
 
   if s.respond_to? :specification_version then
