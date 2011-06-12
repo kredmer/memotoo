@@ -28,7 +28,8 @@ module Memotoo
 				 :bookmark_folder => [:name],
 				 :note => [:description],
 				 :calendar_category => [:name],
-				 :event => [:title, :dateBegin, :dateEnd]}
+				 :event => [:title, :dateBegin, :dateEnd],
+				 :holiday => [:description, :dateBegin, :dateEnd]}
      
      #[https] default:true for the SOAP service.
      # example: @connect=Memotoo::Connect.new("myusername","mypassword")
@@ -88,7 +89,7 @@ module Memotoo
 	def make_methods
 	
 	# the accessible soap objects
-	soapobj = %w{Contact ContactGroup Bookmark BookmarkFolder Note CalendarCategory Event}
+	soapobj = %w{Contact ContactGroup Bookmark BookmarkFolder Note CalendarCategory Event Holiday}
 	# soapobj = %w{Contact ContactGroup Bookmark BookmarkFolder}
 	
 		soapobj.each do |myobj|
@@ -247,7 +248,7 @@ end
 
 #-- available memotoo soap actions !!!!!!!!!!
 
-#event
+#event - ready implemented
 
 #:get_event,
 #:delete_event,    

@@ -4,8 +4,8 @@ class TestMemotoo < Test::Unit::TestCase
 
 # api-problem in: BookmarkFolder
 
-#soapobjects = %w{Contact ContactGroup Bookmark Note CalendarCategory}
-soapobjects = %w{Event}
+#soapobjects = %w{Contact ContactGroup Bookmark Note CalendarCategory Event}
+soapobjects = %w{Holiday}
 
 
 
@@ -21,8 +21,11 @@ fixure = {  :contact => {:new => {:lastname => "Testcontact123456"},
 						:mod => {:description => "TestNote12345xyz"}},
 			:calendar_category => {:new=>{:name => "TestCalendarCategory123456"},
 						:mod => {:name => "TestCalendarCategory123456xyz"}},
-			:event => {:new => {:description=> "Testevent1234", :dateBegin=>"2011-06-12T10:00:00", :dateEnd=>"2011-06-12T15:00:00"},
-						:mod => {:description=> "Testevent1234xyz", :dateBegin=>"2011-06-12T10:00:00", :dateEnd=>"2011-06-12T15:00:00"} }}
+			:event => {:new => {:title=> "Testevent1234", :dateBegin=>"2011-06-12T10:00:00", :dateEnd=>"2011-06-12T15:00:00"},
+						:mod => {:title=> "Testevent1234xyz", :dateBegin=>"2011-06-12T10:00:00", :dateEnd=>"2011-06-12T15:00:00"}},
+			:holiday => {:new => {:description=> "Testholiday1234", :dateBegin=>"2011-07-12", :dateEnd=>"2011-07-20"},
+						:mod => {:description=> "Testholiday1234xyz", :dateBegin=>"2011-07-12", :dateEnd=>"2011-07-20"}}
+						 }
 
 needs = Memotoo::Connect::NEEDS
 
@@ -50,64 +53,64 @@ soapobjects.each do |soapobject|
 				assert_not_nil response
 			end
 			
-#			should "add a new #{soapobject} (and look for needed params)" do
-#				response = @connect.send(addmethod,{})
-#				assert_nil response
-#			end
-#		
-#			should "find the #{soapobject}" do
-#				response = @connect.send(searchmethod,{:search => objectfixure})
-#				assert_not_nil response
-#			end
-#			
-#			should "not find a non existent #{soapobject}" do
-#				response = @connect.send(searchmethod,{:search => objectfixure+"xyz"})
-#				assert_nil response
-#			end
-#			
-#			should "look for a search parameter in search for #{soapobject}" do
-#				response = @connect.send(searchmethod,{})
-#				assert !response
-#			end
-#			
-#	  		should "get the test#{soapobject}" do
-#	  			response = @connect.send(searchmethod,{:search => objectfixure})
-#	  			contact = @connect.send(getmethod,response[:id])
-#				assert_not_nil contact
-#			end
-#			
-#			should "get the #{soapobject} changed since 2011-01-01" do
-#				response = @connect.send(getsyncmethod,"2011-01-01 00:00:00")
-#				assert_not_nil response
-#			end
+			should "add a new #{soapobject} (and look for needed params)" do
+				response = @connect.send(addmethod,{})
+				assert_nil response
+			end
+		
+			should "find the #{soapobject}" do
+				response = @connect.send(searchmethod,{:search => objectfixure})
+				assert_not_nil response
+			end
+			
+			should "not find a non existent #{soapobject}" do
+				response = @connect.send(searchmethod,{:search => objectfixure+"xyz"})
+				assert_nil response
+			end
+			
+			should "look for a search parameter in search for #{soapobject}" do
+				response = @connect.send(searchmethod,{})
+				assert !response
+			end
+			
+	  		should "get the test#{soapobject}" do
+	  			response = @connect.send(searchmethod,{:search => objectfixure})
+	  			contact = @connect.send(getmethod,response[:id])
+				assert_not_nil contact
+			end
+			
+			should "get the #{soapobject} changed since 2011-01-01" do
+				response = @connect.send(getsyncmethod,"2011-01-01 00:00:00")
+				assert_not_nil response
+			end
 		end
 		
 		
-#		context "B Modifying #{soapobject}'s" do
-#		
-#			should "modify the test#{soapobject}" do
-#				response = @connect.send(searchmethod,{:search => objectfixure})
-#				params = {:id=>response[:id]}.merge(fixure[symbol][:mod])
-#	 		    contact = @connect.send(modifymethod,params)
-#				assert contact
-#			end
+		context "B Modifying #{soapobject}'s" do
+		
+			should "modify the test#{soapobject}" do
+				response = @connect.send(searchmethod,{:search => objectfixure})
+				params = {:id=>response[:id]}.merge(fixure[symbol][:mod])
+	 		    contact = @connect.send(modifymethod,params)
+				assert contact
+			end
 
-#			should "modify the test#{soapobject} (and look for needed params)" do
-#				response = @connect.send(searchmethod,{:search => fixure[symbol][:mod][needs[symbol][0]]})
-#	 		      contact = @connect.send(modifymethod, {})
-#				  assert !contact
-#			end
-#		end
-#		
-#		
-#		context "Deleting #{soapobject}" do
-#		
-#			should "delete the test#{soapobject}" do
-#				response = @connect.send(searchmethod,{:search => fixure[symbol][:mod][needs[symbol][0]]})
-#				contact = @connect.send(deletemethod,response[:id])
-#				assert contact
-#			end
-#		end
+			should "modify the test#{soapobject} (and look for needed params)" do
+				response = @connect.send(searchmethod,{:search => fixure[symbol][:mod][needs[symbol][0]]})
+	 		      contact = @connect.send(modifymethod, {})
+				  assert !contact
+			end
+		end
+		
+		
+		context "Deleting #{soapobject}" do
+		
+			should "delete the test#{soapobject}" do
+				response = @connect.send(searchmethod,{:search => fixure[symbol][:mod][needs[symbol][0]]})
+				contact = @connect.send(deletemethod,response[:id])
+				assert contact
+			end
+		end
 		
 	end #context
 	end # each
