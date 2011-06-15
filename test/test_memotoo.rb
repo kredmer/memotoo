@@ -1,4 +1,4 @@
-require 'helper'
+require File.expand_path('./test/helper')
 
 class TestMemotoo < Test::Unit::TestCase
   
