@@ -5,8 +5,8 @@ class TestMemotoo < Test::Unit::TestCase
 # api-problem in: BookmarkFolder, Holiday -> reportet to Thomas Pequet on 12.July 2011
 
 # uncomment this to test all soapobjects
-soapobjects = %w{Contact}
-#soapobjects = %w{Contact ContactGroup Bookmark Note CalendarCategory Event Task}
+#soapobjects = %w{Contact}
+soapobjects = %w{Contact ContactGroup Bookmark Note CalendarCategory Event Task}
 
 
 
