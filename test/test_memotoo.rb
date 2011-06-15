@@ -1,5 +1,9 @@
 require 'helper'
 
+
+  require "ruby-debug"
+
+
 class TestMemotoo < Test::Unit::TestCase
   
   context "Memotoo-Soap Api basic tests" do

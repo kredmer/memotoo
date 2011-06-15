@@ -4,6 +4,7 @@ private
 #    caller[0] =~ /`([^']*)'/ and $1
 #  end
   def calling_method
+  debugger
     caller[1] =~ /`([^']*)'/ and $1
   end
 end

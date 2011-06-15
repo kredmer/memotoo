@@ -1,6 +1,8 @@
+
+
 class Memotoo
 
-	private	
+	#private	
 	
    # Creates the <tt>Savon::Client</tt>.
     def client(https=true)
@@ -31,39 +33,53 @@ class Memotoo
 	def make_methods
 	
 	# the accessible soap objects
-	soapobjects = %w{Contact ContactGroup Bookmark BookmarkFolder Note CalendarCategory Event Holiday Task}
+	#soapobjects = %w{Contact ContactGroup Bookmark BookmarkFolder Note CalendarCategory Event Holiday Task}
+	soapobjects = %w{Contact}
 	
 		soapobjects.each do |soapobject|
 		symbol=soapobject.underscore.to_sym
 	
 		# add method
 		methodname="add"+soapobject	
+
 		selfclass.send(:define_method, methodname) { |details| output(detailsApicall({symbol => details}), :id) if fields?(details, NEEDS[symbol]) }
+
+		if RUBY_VERSION == "1.9.2"
 		
 		# search
+		Memotoo.define_singleton_method methodname do |params| 
+		output(searchApiCall(params), :return, symbol) if fields?(params, [:search]) 
+		end
+
+		
+		else
 		methodname="search"+soapobject	
 		selfclass.send(:define_method, methodname) { |params| output(searchApiCall(params), :return, symbol) if fields?(params, [:search]) }
 		
-		# get
-		methodname="get"+soapobject	
-		selfclass.send(:define_method, methodname) { |id| output(idApicall(id), :return, symbol) }
-
-		# get...Sync
-		methodname="get"+soapobject+"Sync"	
-		selfclass.send(:define_method, methodname) { |datetime| output(getSyncApiCall(datetime), :return, symbol) }
-
-		# modify
-		methodname="modify"+soapobject	
-		selfclass.send(:define_method, methodname) { |details| output(detailsApicall({symbol => details}), :ok) if fields?(details, [NEEDS[symbol], :id].flatten!) }
 		
-		# delete
-		methodname="delete"+soapobject	
-		selfclass.send(:define_method, methodname) { |id| output(idApicall(id), :ok) }
+		end
+		
+#		# get
+#		methodname="get"+soapobject	
+#		selfclass.send(:define_method, methodname) { |id| output(idApicall(id), :return, symbol) }
+
+#		# get...Sync
+#		methodname="get"+soapobject+"Sync"	
+#		selfclass.send(:define_method, methodname) { |datetime| output(getSyncApiCall(datetime), :return, symbol) }
+
+#		# modify
+#		methodname="modify"+soapobject	
+#		selfclass.send(:define_method, methodname) { |details| output(detailsApicall({symbol => details}), :ok) if fields?(details, [NEEDS[symbol], :id].flatten!) }
+#		
+#		# delete
+#		methodname="delete"+soapobject	
+#		selfclass.send(:define_method, methodname) { |id| output(idApicall(id), :ok) }
 
 		end
 	end
 	
     def searchApiCall(searchparameter)
+    debugger
 		search = SEARCHDEFAULTS.merge!(searchparameter)
 		apicall(calling_method.to_sym, search)
     end
@@ -84,6 +100,9 @@ class Memotoo
     
     # used internally for a request
     def apicall(action, parameter)
+    
+    debugger
+    
 		response=@client.request :wsdl, action do 
 			soap.body = { :param => parameter }.deep_merge_me!(self.opts)
 		end	
