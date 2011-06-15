@@ -1,44 +1,35 @@
 require 'helper'
 
-
-  require "ruby-debug"
-
-
 class TestMemotoo < Test::Unit::TestCase
   
   context "Memotoo-Soap Api basic tests" do
   
-		should "be true" do
-			assert true
-		end  
-
-  
 		setup do
-			@connect=Memotoo.new(MEMOTOO_USERNAME,MEMOTOO_PASSWORD)
+			@connect=Memotoo.new(MEMOTOO_USERNAME,MEMOTOO_PASSWORD,false)
 		end
-		  
+		
 		should "have a connect-instance" do
 			assert_equal Memotoo, @connect.class
 		end
-		  
+		
 		should "write a message if username/password is not correct" do
-		    @connect=Memotoo.new(MEMOTOO_USERNAME,"wrongpasswd")
+			@connect=Memotoo.new(MEMOTOO_USERNAME,"wrongpasswd")
 			assert_raises ArgumentError do
 					response = @connect.searchContact(TESTSEARCHDEFAULTS)
 			end
 		end
 
-#		should "have valid username and password and get search results" do
-#			response = @connect.searchContact(TESTSEARCHDEFAULTS)
-#			assert_not_nil response
-#		end
-#		
-#		
-#		should "also use http request instead of https" do
-#			@connect=Memotoo.new(MEMOTOO_USERNAME,MEMOTOO_PASSWORD, false)
-#			response = @connect.searchContact(TESTSEARCHDEFAULTS)
-#			assert_not_nil response
-#		end
+		should "have valid username and password and get search results" do
+			response = @connect.searchContact(TESTSEARCHDEFAULTS)
+			assert_not_nil response
+		end
+		
+		
+		should "also use http request instead of https" do
+			@connect=Memotoo.new(MEMOTOO_USERNAME,MEMOTOO_PASSWORD, false)
+			response = @connect.searchContact(TESTSEARCHDEFAULTS)
+			assert_not_nil response
+		end
 		
   end
 		
