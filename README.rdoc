@@ -122,6 +122,9 @@ You can now use the gem rubygems-test for easy testing this gem.
 
 See my testresult here: http://test.rubygems.org/gems/memotoo/v/2.0.0/test_results/1663
 
+my testresult for ruby 1.9.2 here:
+http://test.rubygems.org/gems/memotoo/v/2.0.1/test_results/1681
+
 (To make a fast functional test only contact will be tested - goto test_soapobjects.rb line 8 and uncomment for all soapobject-tests)
 
 ==Documentation
@@ -131,6 +134,10 @@ see rdoc
 and memotoo api-documentation
 
 https://www.memotoo.com/index.php?rub=api#SOAP-server.php
+
+== Changelog V. 2.0.1
+
+some code refactoring and support for ruby >=1.9.2
 
 == Changelog V. 2.0.0
 
