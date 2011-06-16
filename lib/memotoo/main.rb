@@ -1,26 +1,6 @@
 class Memotoo
-
-	private	
-	
-   # Creates the <tt>Savon::Client</tt>.
-    def client(https=true)
-		#--
-		# in any case problems switch back to receiving the wsdl file from memotoo
-		# https: wsdl.document = "https://www.memotoo.com/SOAP-server.php?wsdl"
-		# http:  wsdl.document = "http://www.memotoo.com/SOAP-server.php?wsdl"
-		#++
-	
-		@client ||= Savon::Client.new do
-          wsdl.namespace="urn:memotooSoap"
-		  if https
-				wsdl.endpoint="https://www.memotoo.com/SOAP-server.php"
-				http.auth.ssl.verify_mode = :none 
-		  else
-				wsdl.endpoint="http://www.memotoo.com/SOAP-server.php"
-		  end
-		  http.auth.basic self.opts[:param][:login], self.opts[:param][:password]
-		end
-    end
+    
+    private	
     
 	def selfclass
 	(class << self; self; end)

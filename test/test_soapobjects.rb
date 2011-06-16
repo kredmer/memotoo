@@ -43,7 +43,7 @@ soapobjects.each do |soapobject|
    	context "what we could do with #{soapobject}'s" do
    	
    		setup do
-			@connect=Memotoo.new(MEMOTOO_USERNAME,MEMOTOO_PASSWORD, false)
+			@connect=Memotoo.new(MEMOTOO_USERNAME,MEMOTOO_PASSWORD, true, false, false)
 		end
 
 		context "Adding and finding #{soapobject}" do

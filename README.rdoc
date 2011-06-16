@@ -108,6 +108,16 @@ dateEnd::    "2011-01-01", Format: YYYY-MM-DD
 Task and Event::
 dateBegin::    "2011-06-18T10:00:00", Format: YYYY-MM-DDTHH:II:SS - ISO8601 time format GMT
 dateEnd::    "2011-06-18T10:00:00", Format: YYYY-MM-DDTHH:II:SS - ISO8601 time format GMT
+
+==Logging
+
+Enable/Disable Savon and HTTPI - Logging 
+
+@connect=Memotoo.new(username, password, https=true, log=false, requestlog=true)
+
+log = Savon logging on/off
+
+requestlog = HTTPI loggin on/off
  
 ==Testing
 
@@ -134,6 +144,10 @@ see rdoc
 and memotoo api-documentation
 
 https://www.memotoo.com/index.php?rub=api#SOAP-server.php
+
+== Changelog V. 2.0.2
+
+Easy configuring logging options
 
 == Changelog V. 2.0.1
 

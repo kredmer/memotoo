@@ -23,14 +23,27 @@ class Memotoo
 				 :task => [:title]}
      
      #[https] default:true for the SOAP service. Use false to use http-connection
+     #[log] default:false - set to true to see savons logging
+     #[requeslog] default:false - set to 
      # example:(use https) 
      #     @connect=Memotoo::Connect.new("myusername","mypassword")
      # example:(use http) 
      #     @connect=Memotoo::Connect.new("myusername","mypassword", false)
-    def initialize(username, password, https=true)
+     # example:(set loggin on and http-request-logging off)
+     #     @connect=Memotoo::Connect.new("myusername","mypassword", true, true, false)
+    def initialize(username, password, https=true, log=false, requestlog=true)
 
-		# we will need it for every request - will be merged in
+		# need it for every request - will be merged in
 		self.opts= { :param => { :login => username, :password => password}}
+		
+		# set savon logging and erros
+		Savon.configure do |config|
+			config.raise_errors = true # raise SOAP faults and HTTP errors
+			config.log = log # enable/disable logging
+			config.log_level = :debug # changing the log level
+		end
+		
+		HTTPI.log=requestlog
 		
 		# build dynamically all methods - some magic :-)
 		make_methods
@@ -38,20 +51,26 @@ class Memotoo
 		# creates client with memotoo settings 
 		client(https)
 	end
-end
-
-# stop savon logging 
-
-module Savon # :nodoc: all
-  module Global
-    def log?
-      false
+	
+	   # Creates the <tt>Savon::Client</tt>.
+    def client(https=true)
+		#--
+		# in any case problems switch back to receiving the wsdl file from memotoo
+		# https: wsdl.document = "https://www.memotoo.com/SOAP-server.php?wsdl"
+		# http:  wsdl.document = "http://www.memotoo.com/SOAP-server.php?wsdl"
+		#++
+		@client ||= Savon::Client.new do
+          wsdl.namespace="urn:memotooSoap"
+		  if https
+				wsdl.endpoint="https://www.memotoo.com/SOAP-server.php"
+				http.auth.ssl.verify_mode = :none 
+		  else
+				wsdl.endpoint="http://www.memotoo.com/SOAP-server.php"
+		  end
+		  http.auth.basic self.opts[:param][:login], self.opts[:param][:password]
+		end
     end
-      def raise_errors?
-      @raise_errors = true
-    end
-   
-  end
+	
 end
 
 #Finished in 41.165241 seconds.

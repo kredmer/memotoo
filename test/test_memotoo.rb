@@ -5,7 +5,7 @@ class TestMemotoo < Test::Unit::TestCase
   context "Memotoo-Soap Api basic tests" do
   
 		setup do
-			@connect=Memotoo.new(MEMOTOO_USERNAME,MEMOTOO_PASSWORD,false)
+			@connect=Memotoo.new(MEMOTOO_USERNAME,MEMOTOO_PASSWORD, true, false, false)
 		end
 		
 		should "have a connect-instance" do
@@ -13,7 +13,7 @@ class TestMemotoo < Test::Unit::TestCase
 		end
 		
 		should "write a message if username/password is not correct" do
-			@connect=Memotoo.new(MEMOTOO_USERNAME,"wrongpasswd")
+			@connect=Memotoo.new(MEMOTOO_USERNAME,"wrongpasswd", true, false, false)
 			assert_raises ArgumentError do
 					response = @connect.searchContact(TESTSEARCHDEFAULTS)
 			end
@@ -26,7 +26,7 @@ class TestMemotoo < Test::Unit::TestCase
 		
 		
 		should "also use http request instead of https" do
-			@connect=Memotoo.new(MEMOTOO_USERNAME,MEMOTOO_PASSWORD, false)
+			@connect=Memotoo.new(MEMOTOO_USERNAME,MEMOTOO_PASSWORD, false, false, false)
 			response = @connect.searchContact(TESTSEARCHDEFAULTS)
 			assert_not_nil response
 		end
@@ -34,27 +34,6 @@ class TestMemotoo < Test::Unit::TestCase
   end
 		
 end
-
-
-# uncomment this if you want to see everything in log what happens...it's a lot
-#module Savon
-#  module Global
-#    def log?
-#      true
-#    end
-#    
-#  end
-#end
-
-# comment this to see http requests logged
-module HTTPI
-  class << self
-    def log?
-      @log = false
-    end
-  end
-end
-
 
 ################## rcov-result ######################
 
