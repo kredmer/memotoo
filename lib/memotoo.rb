@@ -3,7 +3,6 @@ require 'active_support/inflector'
 require "savon"
 require "memotoo/main"
 require "memotoo/core-ext/hash"
-require "memotoo/core-ext/kernel"
 
 class Memotoo
 
@@ -55,21 +54,20 @@ module Savon # :nodoc: all
   end
 end
 
-#Finished in 12.361502 seconds.
+#Finished in 41.165241 seconds.
 
-#14 tests, 14 assertions, 0 failures, 0 errors
+#74 tests, 74 assertions, 0 failures, 0 errors
 #+----------------------------------------------------+-------+-------+--------+
 #|                  File                              | Lines |  LOC  |  COV   |
 #+----------------------------------------------------+-------+-------+--------+
-#|lib/memotoo.rb                                      |    59 |    34 | 100.0% |
-#|lib/memotoo/core-ext/hash.rb                        |    41 |    25 | 100.0% |
-#|lib/memotoo/core-ext/kernel.rb                      |    10 |     6 | 100.0% |
-#|lib/memotoo/main.rb                                 |   280 |    77 | 100.0% |
+#|lib/memotoo.rb                                      |    74 |    33 | 100.0% |
+#|lib/memotoo/core-ext/hash.rb                        |    39 |    25 | 100.0% |
+#|lib/memotoo/main.rb                                 |   291 |    88 | 100.0% |
 #+----------------------------------------------------+-------+-------+--------+
-#|Total                                               |   390 |   142 | 100.0% |
+#|Total                                               |   404 |   146 | 100.0% |
 #+----------------------------------------------------+-------+-------+--------+
-#100.0%   4 file(s)   390 Lines   142 LOC
+#100.0%   3 file(s)   404 Lines   146 LOC
 
-#Generated on Sun Jun 12 07:03:59 +0200 2011 with rcov 0.9.8
+#Generated on Thu Jun 16 02:15:11 +0200 2011 with rcov 0.9.8
 
 

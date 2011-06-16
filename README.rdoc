@@ -4,7 +4,9 @@
 
 The memotoo-gem is a soap(savon)-wrapper to (easy) access your {memotoo}[https://www.memotoo.com/index-saleshype.php] contacts.
 
-Add, get, search, modify and delete your memotoo contacts, contact-groups and bookmarks.
+Add, get, search, modify, sync and delete your memotoo contacts, bookmarks, notes, event and tasks.
+
+<b>Works now an Ruby 1.8.7 and Ruby 1.9.2 !!!</b>
 
 == You need
 you need a memotoo-credential (username/passwd) to use this gem 
@@ -77,9 +79,7 @@ bookmarks:
     @connect.deleteBookmark(12345)
 
 
-Requirements:
-
- for the objects:
+Requirements for the objects:
 
 Contact:: :lastname
 ContactGroup:: :name
@@ -91,15 +91,15 @@ Event:: :title, :dateBegin, :dateEnd
 Holiday:: :description, :dateBegin, :dateEnd
 Task:: :title
 
- for the methods:
+Requirements for the methods:
 
-searchmethod:: {search=>" "}, a hash
+searchmethod:: minimum a hash with a symbol search and your searchstring
 id:: id of record, integer
 get...Sync:: datetime, format YYYY-MM-DD HH:MM:SS - "2010-02-23 10:00:00"
 modify:: id of record, integer
 add and modify:: need always the object requirements 
 
- hint:
+Be careful with used dates:
  
 Holiday::
 dateBegin::    "2011-01-01", Format: YYYY-MM-DD
@@ -120,12 +120,12 @@ You can now use the gem rubygems-test for easy testing this gem.
 
     gem test memotoo
 
-See my testresult here: http://test.rubygems.org/gems/memotoo/v/2.0.0/test_results/1663
+See my testresult here: http://test.rubygems.org/gems/memotoo/v/2.0.1/test_results/1682
 
 my testresult for ruby 1.9.2 here:
 http://test.rubygems.org/gems/memotoo/v/2.0.1/test_results/1681
 
-(To make a fast functional test only contact will be tested - goto test_soapobjects.rb line 8 and uncomment for all soapobject-tests)
+(To make a fast functional test only contact will be tested - goto test_soapobjects.rb line 9 and uncomment it for all soapobject-tests)
 
 ==Documentation
 

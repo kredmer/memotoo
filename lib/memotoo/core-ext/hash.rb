@@ -24,18 +24,16 @@ class Hash # :nodoc: all
     sought_value
   end 
   
-      # Returns a new Hash with +self+ and +other_hash+ merged recursively.
-      # Modifies the receiver in place.
-      # => see this function also in savon gem 
-      # got problems in my test and had to include it here...
-      def deep_merge_me!(other_hash)
-        other_hash.each_pair do |k,v|
-          tv = self[k]
-          self[k] = tv.is_a?(Hash) && v.is_a?(Hash) ? tv.deep_merge_me!(v) : v
-        end
-        self
-      end unless defined? deep_merge!
-  
-  
+	# Returns a new Hash with +self+ and +other_hash+ merged recursively.
+	# Modifies the receiver in place.
+	# => see this function also in savon gem 
+	# got problems in my test and had to include it here...
+	def deep_merge_me!(other_hash)
+	other_hash.each_pair do |k,v|
+	  tv = self[k]
+	  self[k] = tv.is_a?(Hash) && v.is_a?(Hash) ? tv.deep_merge_me!(v) : v
+	end
+	self
+	end unless defined? deep_merge!
   
 end

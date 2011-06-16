@@ -66,7 +66,6 @@ class Memotoo
 			selfclass.send(:define_method, action[:delete]) do |id|
 				idApicall(action[:delete],id,[:ok]) 
 			end
-
 		end
 	end
 	
@@ -88,7 +87,7 @@ class Memotoo
         output(method,apicall(method,details), outputkeys)
     end
 
-    # used internally for a request
+    # used for a savon-soap request
     def apicall(action, parameter)
     
 		response=@client.request :wsdl, action do 
