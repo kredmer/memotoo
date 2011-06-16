@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{memotoo}
-  s.version = "2.0.0"
+  s.version = "2.0.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Karsten Redmer"]
-  s.date = %q{2011-06-12}
+  s.date = %q{2011-06-16}
   s.description = %q{Unofficial gem for connecting to memotoo.com with their soap-api and handle your contact needs. Memotoo lets your synchronize all your contacts, events and tasks with yahoo, gmail, facebook, xing, outlook, your mobile-phone and more. You can also get your e-mails in one place.Features of memotoo:
   New mobile? Transfer all your data to your new device!
   Synchronise your data with your mobile phone (with SyncML)
@@ -36,7 +36,6 @@ Gem::Specification.new do |s|
     "VERSION",
     "lib/memotoo.rb",
     "lib/memotoo/core-ext/hash.rb",
-    "lib/memotoo/core-ext/kernel.rb",
     "lib/memotoo/main.rb",
     "memotoo.gemspec",
     "test/helper.rb",
@@ -61,6 +60,8 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<i18n>, [">= 0"])
       s.add_runtime_dependency(%q<activesupport>, [">= 2.3.5"])
       s.add_runtime_dependency(%q<savon>, ["~> 0.9.2"])
+      s.add_runtime_dependency(%q<httpi>, ["= 0.9.4"])
+      s.add_runtime_dependency(%q<rake>, ["= 0.8.7"])
       s.add_development_dependency(%q<rack>, ["~> 1.1.2"])
       s.add_development_dependency(%q<shoulda>, [">= 0"])
       s.add_development_dependency(%q<bundler>, ["~> 1.0.0"])
@@ -71,6 +72,8 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<i18n>, [">= 0"])
       s.add_dependency(%q<activesupport>, [">= 2.3.5"])
       s.add_dependency(%q<savon>, ["~> 0.9.2"])
+      s.add_dependency(%q<httpi>, ["= 0.9.4"])
+      s.add_dependency(%q<rake>, ["= 0.8.7"])
       s.add_dependency(%q<rack>, ["~> 1.1.2"])
       s.add_dependency(%q<shoulda>, [">= 0"])
       s.add_dependency(%q<bundler>, ["~> 1.0.0"])
@@ -82,6 +85,8 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<i18n>, [">= 0"])
     s.add_dependency(%q<activesupport>, [">= 2.3.5"])
     s.add_dependency(%q<savon>, ["~> 0.9.2"])
+    s.add_dependency(%q<httpi>, ["= 0.9.4"])
+    s.add_dependency(%q<rake>, ["= 0.8.7"])
     s.add_dependency(%q<rack>, ["~> 1.1.2"])
     s.add_dependency(%q<shoulda>, [">= 0"])
     s.add_dependency(%q<bundler>, ["~> 1.0.0"])
