@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{memotoo}
-  s.version = "2.0.2"
+  s.version = "2.0.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Karsten Redmer"]
-  s.date = %q{2011-06-16}
+  s.date = %q{2011-08-11}
   s.description = %q{Unofficial gem for connecting to memotoo.com with their soap-api and handle your contact needs. Memotoo lets your synchronize all your contacts, events and tasks with yahoo, gmail, facebook, xing, outlook, your mobile-phone and more. You can also get your e-mails in one place.Features of memotoo:
   New mobile? Transfer all your data to your new device!
   Synchronise your data with your mobile phone (with SyncML)
